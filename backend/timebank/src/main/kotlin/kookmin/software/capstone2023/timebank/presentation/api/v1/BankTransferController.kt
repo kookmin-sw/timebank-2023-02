@@ -39,8 +39,8 @@ class BankTransferController(
             amount = response.amount,
             balanceSnapshot = response.balanceSnapshot,
             status = response.status,
-            senderBankAccountNumber = response.senderAccountNumber,
-            receiverBankAccountNumber = response.receiverAccountNumber,
+            senderBankAccountNumber = response.senderBankAccount.accountNumber,
+            receiverBankAccountNumber = response.receiverBankAccount.accountNumber,
         )
     }
 }

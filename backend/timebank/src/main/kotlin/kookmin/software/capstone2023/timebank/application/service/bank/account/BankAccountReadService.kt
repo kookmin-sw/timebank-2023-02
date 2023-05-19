@@ -11,6 +11,7 @@ import kookmin.software.capstone2023.timebank.presentation.api.v1.model.bank.acc
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.time.LocalDateTime
+import java.util.*
 
 @Service
 class BankAccountReadService(
@@ -18,6 +19,7 @@ class BankAccountReadService(
     private val accountRepository: AccountJpaRepository,
     private val failedAttemptsCounter: FailedAttemptsCounter,
 ) {
+
     // 은행 계좌 조회
     fun readBankAccountByAccountNumber(
         accountId: Long,
@@ -66,6 +68,12 @@ class BankAccountReadService(
         }.let {
             return it
         }
+    }
+
+    fun getBankAccountByBankAccountId(bankAccountId: Long): BankAccount {
+        // findById 메서드는 Optional<BankAccount>를 반환하므로 orElseThrow를 사용하여 BankAccount를 반환하거나 에러를 던집니다.
+        return bankAccountRepository.findById(bankAccountId)
+            .orElseThrow { NotFoundException(message = "존재하지 않는 은행 계좌입니다.") }
     }
 
     fun getBankAccountByBankAccountNumber(bankAccountNumber: String): BankAccount {

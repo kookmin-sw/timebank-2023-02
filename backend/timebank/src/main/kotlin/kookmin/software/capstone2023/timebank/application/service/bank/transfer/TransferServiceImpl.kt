@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
+import java.time.ZoneId
 
 @Service
 @Transactional(isolation = Isolation.READ_COMMITTED)
@@ -53,10 +54,10 @@ class TransferServiceImpl(
             code = TransactionCode.WITHDRAW,
             amount = request.amount,
             status = TransactionStatus.REQUESTED,
-            receiverAccountNumber = receiver.accountNumber,
-            senderAccountNumber = sender.accountNumber,
+            receiverBankAccount = receiver,
+            senderBankAccount = sender,
             balanceSnapshot = sender.balance,
-            transactionAt = LocalDateTime.now(),
+            transactionAt = LocalDateTime.now(ZoneId.of("Asia/Seoul")),
         )
 
         // 수신 계좌에 입금할 트랜잭션 생성
@@ -65,10 +66,10 @@ class TransferServiceImpl(
             code = TransactionCode.DEPOSIT,
             amount = request.amount,
             status = TransactionStatus.REQUESTED,
-            receiverAccountNumber = receiver.accountNumber,
-            senderAccountNumber = sender.accountNumber,
+            receiverBankAccount = receiver,
+            senderBankAccount = sender,
             balanceSnapshot = receiver.balance,
-            transactionAt = LocalDateTime.now(),
+            transactionAt = LocalDateTime.now(ZoneId.of("Asia/Seoul")),
         )
 
         // 송금 계좌에서 출금하고, 수신 계좌에 입금

@@ -9,6 +9,6 @@ interface TransferService {
         val senderAccountNumber: String,
         val receiverAccountNumber: String,
         val amount: BigDecimal,
-        val password: String,
+        val password: String? = null,
     )
 }
