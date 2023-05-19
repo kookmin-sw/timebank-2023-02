@@ -51,9 +51,9 @@ class CommentService(
      * 댓글 생성 service (user)
      */
     @Transactional
-    fun createComment(inquiryId: Long, request: CommentCreateRequest, userContext: UserContext): CommentDto {
-        val user = userJpaRepository.findByIdOrNull(userContext.userId)
-            ?: throw UnauthorizedException(message = "\"User not found with id: ${userContext.userId}\"")
+    fun createComment(inquiryId: Long, request: CommentCreateRequest, userId: Long, accountType: AccountType): CommentDto {
+        val user = userJpaRepository.findByIdOrNull(userId)
+            ?: throw UnauthorizedException(message = "\"User not found with id: ${userId}\"")
         val inquiry = inquiryRepository.findByIdOrNull(inquiryId)
             ?: throw UnauthorizedException(message = "\"User not found with id: ${inquiryId}\"")
         val previousCommentCount = commentRepository.countByInquiryId(inquiryId)
@@ -65,10 +65,10 @@ class CommentService(
             commentDate = request.commentDate,
             commentSeq = newCommentId,
         )
-        if (userContext.accountType == AccountType.BRANCH) {
+        if (accountType == AccountType.BRANCH) {
             inquiry.replyStatus = InquiryStatus.ANSWERED
         } else {
-            if (userContext.userId != inquiry.userId) {
+            if (userId != inquiry.userId) {
                 throw UnauthorizedException(message = "접근 권한이 없습니다.")
             } else {
                 inquiry.replyStatus = InquiryStatus.REPENDING

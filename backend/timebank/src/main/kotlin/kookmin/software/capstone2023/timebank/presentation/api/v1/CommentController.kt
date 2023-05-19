@@ -32,7 +32,7 @@ class CommentController(
         @PathVariable id: Long,
         @RequestBody request: CommentService.CommentCreateRequest,
     ): CommentService.CommentDto {
-        return commentService.createComment(id, request, userContext)
+        return commentService.createComment(id, request, userContext.userId, userContext.accountType)
     }
 
     /**
