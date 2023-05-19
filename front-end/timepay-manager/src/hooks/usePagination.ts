@@ -8,7 +8,7 @@ export interface Pagination {
     resetPagination: () => void;
 }
 
-export function usePagination(defaultPageSize: number = 3): Pagination {
+export function usePagination(defaultPageSize: number = 20): Pagination {
     const [page, setPage] = useState(1);
     const [size, setSize] = useState(defaultPageSize);
 
