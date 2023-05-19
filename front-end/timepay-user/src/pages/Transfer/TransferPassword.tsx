@@ -10,15 +10,15 @@ import "../../styles/css/Transfer/transfer_account.css";
 
 
 function TransferPassword() {
+    const navigate = useNavigate();
     const location = useLocation();
+
     const account = location.state.account;
     const amount = location.state.amount;
     const name = location.state.name;
     const accessToken = window.localStorage.getItem("access_token");
     const userAccount = window.localStorage.getItem("accountNumber");
-
-    const navigate = useNavigate();
-
+    
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     var passwordCorrect = true;
@@ -43,7 +43,7 @@ function TransferPassword() {
             navigate("/transfer/log", {state : {account : account, amount : amount, name : name}});
         })
         .catch(function(error){
-            console.clear();
+            //console.log(error);
             setError("비밀번호 오류. 다시 입력해주세요.");
         })}
         catch{

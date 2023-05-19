@@ -16,13 +16,14 @@ function TransferAmount() {
     const location = useLocation();
     const account = location.state.account;
     const name = location.state.owner;
-    const accessToken = location.state.accessToken;
-    const getbalance = window.localStorage.getItem("balance");
+    const getBalance = window.localStorage.getItem("balance");
+    const balance = getBalance === null ? "0" : getBalance;
 
-    const balance = getbalance === null ? "0" : getbalance;
+
 
 
     const [amount, setAmount] = useState(0);
+
 
     
     const [openModal, setOpenModal] = useState(false);
@@ -42,6 +43,8 @@ function TransferAmount() {
         }
     };
 
+
+
     const addValue = (adder : number) =>{
         //console.log(isNaN(amount) || amount==="");
         setAmount(amount + adder);
@@ -51,8 +54,7 @@ function TransferAmount() {
     const setHeaderTitle = useSetRecoilState(headerTitleState);
     useEffect(() => {
       setHeaderTitle('금액 입력');
-      
-    });
+    },[]);
 
     return(
         <div>

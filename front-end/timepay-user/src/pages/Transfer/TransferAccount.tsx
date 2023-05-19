@@ -29,11 +29,11 @@ function TransferAccount() {
         then(response => {
             if(response.status === 200) {
                 setAccountExist(true);
-                navigate("/transfer/amount", {state : {accessToken : accessToken, account: accountFormat, owner: response.data['ownerName']}});
+                navigate("/transfer/amount", {state : {account: accountFormat, owner: response.data['ownerName']}});
             }
         }).
         catch(function(error){
-            console.log(error);
+            //console.log(error);
         })
 
         if(accountExist === false || account ===""){
@@ -41,9 +41,22 @@ function TransferAccount() {
         }
     };
 
+    const getAccountInfo = async () =>{
+        await axios.get(PATH.SERVER + `/api/v1/bank/account`, {
+            headers:{
+                'Authorization' : `Bearer ${accessToken}`
+            }
+        }).then(response =>{
+            const data = response.data[0];
+            window.localStorage.setItem("balance", data.balance);
+            window.localStorage.setItem("accountNumber", data.bankAccountNumber);
+        })
+    };
+
     const setHeaderTitle = useSetRecoilState(headerTitleState);
     useEffect(() => {
       setHeaderTitle('계좌번호 입력');
+      getAccountInfo();
     });
     
     return(

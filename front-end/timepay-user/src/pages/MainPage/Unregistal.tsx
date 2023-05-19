@@ -15,7 +15,7 @@ async function unregistalTimePay() {
         Authorization: "Bearer " + access_token,
       },
     }).then((res) => {
-      console.log(`status code : ${res.status}`);
+      //console.log(`status code : ${res.status}`);
     });
   } catch (e) {
     console.error(e);

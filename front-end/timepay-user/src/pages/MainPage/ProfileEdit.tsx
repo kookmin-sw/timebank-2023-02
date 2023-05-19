@@ -48,7 +48,7 @@ const ProfileEdit = () => {
         setIsSamePassword(true);
         setShowPasswordError(true);
       }
-      console.log(isSamePassword);
+      //console.log(isSamePassword);
     },
     [navigate],
   );
@@ -75,9 +75,9 @@ const ProfileEdit = () => {
           Authorization: `Bearer ${access_token}`,
         },
       }).then((res) => {
-        console.log('getUserProfile status code : ' + res.status);
+        //console.log('getUserProfile status code : ' + res.status);
         setName(res.data.name);
-        console.log(res.data.gender);
+        //console.log(res.data.gender);
         setGender(res.data.gender);
         setPhoneNumber(res.data.phoneNumber);
         setBirthday(res.data.birthday.replaceAll('-', ''));
@@ -95,9 +95,9 @@ const ProfileEdit = () => {
     accountNumber: string,
   ) {
     try {
-      console.log(currentPassWord);
-      console.log(password);
-      console.log(accountNumber);
+      //console.log(currentPassWord);
+      //console.log(password);
+      //console.log(accountNumber);
       await axios({
         method: 'PUT',
         url: PATH.SERVER + '/api/v1/bank/account/password',
@@ -110,8 +110,8 @@ const ProfileEdit = () => {
           bankAccountNumber: accountNumber,
         },
       }).then((res) => {
-        console.log('status code : ' + res.status);
-        console.log(res.data);
+        //console.log('status code : ' + res.status);
+        //console.log(res.data);
       });
     } catch (e) {
       console.error(e);
@@ -138,7 +138,7 @@ const ProfileEdit = () => {
           birthday: getFormattedBirthday(birthday),
         },
       }).then((res) => {
-        console.log('updateUserProfile status code : ' + res.status);
+        //console.log('updateUserProfile status code : ' + res.status);
       });
     } catch (e) {
       console.error(e);
@@ -154,9 +154,9 @@ const ProfileEdit = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       }).then((res) => {
-        console.log(
+        /*console.log(
           `getUserAccount status code : ${res.status}\ndata : ${res.data}`,
-        );
+        );*/
         let index = 0;
         res.data.map((account: any) => {
           if (index > 0) return;

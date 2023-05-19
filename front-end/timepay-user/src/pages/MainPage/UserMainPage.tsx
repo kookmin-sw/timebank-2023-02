@@ -37,9 +37,9 @@ const UserMainPage = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       }).then((res) => {
-        console.log(
+        /*console.log(
           `getUserAccount status code : ${res.status}\ndata : ${res.data}`,
-        );
+        );*/
 
         if (res.data.length === 0) {
           setAccountNumber('');
@@ -64,7 +64,7 @@ const UserMainPage = () => {
   ): Promise<BankAccountTransaction[]> {
     try {
       const access_token = window.localStorage.getItem('access_token');
-      console.log(`${accountNumber}`);
+      //console.log(`${accountNumber}`);
       await axios({
         method: 'GET',
         url: PATH.SERVER + `/api/v1/bank/account/transaction/${accountNumber}`,
@@ -72,9 +72,9 @@ const UserMainPage = () => {
           Authorization: 'Bearer ' + access_token,
         },
       }).then((res) => {
-        console.log(
-          `getRecentRemittanceAccount status code : ${res.status}\nresponse data: ${res.data}`,
-        );
+        /*console.log(
+          `getRecentRemittanceAccount status code : ${res.status}\nresponse data: ${res.data}`
+        );*/
         setRecentRemittanceAccount(res.data.content);
       });
     } catch (e) {
@@ -89,15 +89,15 @@ const UserMainPage = () => {
   useEffect(() => {
     setHeaderTitle(null);
     getUserAccount();
+    window.localStorage.removeItem("accountNumber");
+    window.localStorage.removeItem("balance");
   }, []);
 
   const handleOnClickLinkBtn = useCallback(
     (accountNumber: string) => {
       if (accountNumber === '') navigate(PATH.PASSWORD);
       else
-        navigate(PATH.TRANSFER, {
-          state: { account: accountNumber, balance: balance },
-        });
+        navigate(PATH.TRANSFER);
     },
     [navigate],
   );
@@ -158,7 +158,7 @@ const UserMainPage = () => {
           <div style={{ paddingTop: '20px' }}>
             {recentRemittanceAccount.map((transaction: any) => {
               return (
-                <>
+                <div key={transaction.id}>
                   <div className="list">
                     <div style={{ fontSize: '16px' }}>
                       <div style={{ display: 'flex' }}>
@@ -201,7 +201,7 @@ const UserMainPage = () => {
                       {formattedDate(transaction.transactionAt)}
                     </div>
                   </div>
-                </>
+                </div>
               );
             })}
           </div>
