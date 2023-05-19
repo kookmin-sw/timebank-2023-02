@@ -50,7 +50,11 @@ class CommentService(
      * 댓글 생성 service (user)
      */
     @Transactional
-    fun createComment(inquiryId: Long, request: CommentCreateRequest, userId: Long, accountType: AccountType): CommentDto {
+    fun createComment(
+            inquiryId: Long, request: CommentCreateRequest,
+            userId: Long,
+            accountType: AccountType,
+    ): CommentDto {
         val user = userJpaRepository.findByIdOrNull(userId)
             ?: throw UnauthorizedException(message = "\"User not found with id: ${userId}\"")
         val inquiry = inquiryRepository.findByIdOrNull(inquiryId)
