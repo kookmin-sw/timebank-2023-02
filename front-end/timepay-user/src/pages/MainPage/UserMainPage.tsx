@@ -9,6 +9,17 @@ import { Tooltip } from 'antd';
 import axios from 'axios';
 import { BankAccountTransaction } from '../../data/BankAccountTransaction';
 
+type Transaction = {  
+    "bankAccountId": string,
+    "branchId": string,
+    "balance": string,
+    "createdAt": string,
+    "bankAccountNumber": string,
+    "ownerName": string,
+    "ownerType": string
+  
+}
+
 const formattedDate = (date: string) => {
   var dateObj = new Date(date);
   var year = dateObj.getFullYear();
@@ -24,7 +35,7 @@ const UserMainPage = () => {
   const [accountNumber, setAccountNumber] = useState<string>('');
   const [title, setTitle] = useState<string>('정릉지점');
   const [balance, setBalance] = useState<number>(0);
-  const [recentRemittanceAccount, setRecentRemittanceAccount] = useState([]);
+  const [recentRemittanceAccount, setRecentRemittanceAccount] = useState<BankAccountTransaction[]>([]);
 
   async function getUserAccount() {
     try {
@@ -75,7 +86,10 @@ const UserMainPage = () => {
         console.log(
           `getRecentRemittanceAccount status code : ${res.status}\nresponse data: ${res.data}`,
         );
-        setRecentRemittanceAccount(res.data);
+
+        setRecentRemittanceAccount(res.data.content);
+        //console.log(res.data.content);
+      
       });
     } catch (e) {
       console.error(e);
@@ -153,7 +167,7 @@ const UserMainPage = () => {
         <div className="recent-list">
           <span className="title">최근 송금한 계좌</span>
           <div style={{ paddingTop: '20px' }}>
-            {recentRemittanceAccount.map((transaction: any) => {
+            {Array.isArray(recentRemittanceAccount) ? recentRemittanceAccount.map((transaction: any) => {
               return (
                 <>
                   <div className="list">
@@ -166,8 +180,8 @@ const UserMainPage = () => {
                       </div>
                       <span style={{ fontWeight: 'bold' }}>계좌번호</span>{' '}
                       <span style={{ color: '#F1AF23' }}>
-                        {transaction.receiverAccountNumber === accountNumber
-                          ? transaction.senderAccountNumber
+                        {transaction.receiverBankAccountNumber === accountNumber
+                          ? transaction.senderBankAccountNumber
                           : accountNumber}
                       </span>
                     </div>
@@ -197,9 +211,9 @@ const UserMainPage = () => {
                   </div>
                 </>
               );
-            })}
+            }) : ""}
           </div>
-        </div>
+          </div>
       </div>
     </>
   );

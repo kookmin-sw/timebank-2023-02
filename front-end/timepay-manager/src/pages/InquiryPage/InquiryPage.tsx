@@ -86,7 +86,7 @@ export function InquiryPage() {
     ];
 
     const getQnas = () => {
-    axios.get<QNA[]>(PATH.SERVER + `api/v1/inquiries`, {        
+    axios.get<QNA[]>(PATH.SERVER + `/api/v1/inquiries`, {        
         headers:{
         'Authorization':`Bearer ${accessToken}`
         }

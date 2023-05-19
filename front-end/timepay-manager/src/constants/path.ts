@@ -5,5 +5,5 @@ export const PATH = {
   TRANSFER_PAGE: '/transfers',
   INQUIRY_PAGE: '/inquiries',
   INQUIRY_DETAIL: '/inquiries/:no',
-  SERVER: 'http://localhost:8080/',
+  SERVER: 'https://api.kookmin-timebank.com',
 };

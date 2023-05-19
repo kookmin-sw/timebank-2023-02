@@ -1,13 +1,14 @@
 export interface BankAccountTransaction {
-  id: number;
-  bankAccountId: number;
-  code: string;
   amount: number;
-  status: string;
-  receiverAccountNumber: string;
-  senderAccountNumber: string;
   balanceSnapshot: number;
+  code: string;
+  id: number;
+  receiverAccountId: number;
+  receiverAccountOwnerName: string;
+  receiverBankAccountNumber: string;
+  senderAccountId: number;
+  senderAccountOwnerName: string;
+  senderBankAccountNumber: string;
+  status: string;
   transactionAt: string;
-  createdAt: string;
-  updatedAt: string;
 }
