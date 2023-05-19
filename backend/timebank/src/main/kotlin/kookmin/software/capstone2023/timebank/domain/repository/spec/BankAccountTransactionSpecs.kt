@@ -41,7 +41,7 @@ object BankAccountTransactionSpecs {
 //
             val accountJoin = bankAccountJoin.join<BankAccount, Account>("account", JoinType.INNER)
 
-            bankAccountId?.let { predicates.add(cb.equal(root.get<String>("bankAccountId"), it))}
+            bankAccountId?.let { predicates.add(cb.equal(root.get<String>("bankAccountId"), it)) }
             cb.and(*predicates.toTypedArray())
         }
     }
@@ -51,7 +51,6 @@ object BankAccountTransactionSpecs {
         startDate: LocalDate?,
         endDate: LocalDate?,
     ): Specification<BankAccountTransaction> {
-
         if (startDate == null || endDate == null) {
             return Specification { _, _, _ -> null }
         }

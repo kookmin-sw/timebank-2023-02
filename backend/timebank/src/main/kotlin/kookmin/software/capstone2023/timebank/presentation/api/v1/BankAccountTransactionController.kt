@@ -30,7 +30,6 @@ class BankAccountTransactionController(
         @PathVariable bankAccountNumber: String,
         @PageableDefault pageable: Pageable,
     ): Page<BankAccountTransactionResponseData> {
-
         val bankAccount = bankAccountReadService.getBankAccountByBankAccountNumber(bankAccountNumber)
         return bankAccountTransactionJpaRepository.findAll(
             Specification.allOf(

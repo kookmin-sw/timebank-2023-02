@@ -29,7 +29,6 @@ class BankAccountCreateService(
         password: String,
         branchId: Long,
     ): CreatedBankAccount {
-
         val account: Account = AccountRepository.findByIdOrNull(accountId)
             ?: throw NotFoundException(message = "계정을 찾을 수 없습니다.")
 

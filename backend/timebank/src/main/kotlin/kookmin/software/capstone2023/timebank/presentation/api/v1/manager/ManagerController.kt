@@ -11,7 +11,6 @@ import kookmin.software.capstone2023.timebank.presentation.api.v1.manager.model.
 import kookmin.software.capstone2023.timebank.presentation.api.v1.manager.model.ManagerLoginResponseData
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.data.domain.Sort
 import org.springframework.data.jpa.domain.Specification
 import org.springframework.data.web.PageableDefault
 import org.springframework.transaction.annotation.Transactional
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDate
-import java.time.LocalTime
 
 @RestController
 @RequestMapping("api/v1/managers")
