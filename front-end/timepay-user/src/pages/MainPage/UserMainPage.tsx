@@ -174,7 +174,7 @@ const UserMainPage = () => {
                     {transaction.code === 'DEPOSIT' ? (
                       <div className="balance">
                         <span style={{ fontWeight: 'bold', color: '#74B4FF' }}>
-                          - {transaction.amount}
+                          + {transaction.amount}
                         </span>
                         <span style={{ fontWeight: 'bold', color: '#F1AF23' }}>
                            TP
@@ -183,7 +183,7 @@ const UserMainPage = () => {
                     ) : (
                       <div className="balance">
                         <span style={{ fontWeight: 'bold', color: '#FF9574' }}>
-                          + {transaction.amount}
+                          - {transaction.amount}
                         </span>
                         <span style={{ fontWeight: 'bold', color: '#F1AF23' }}>
                            TP
