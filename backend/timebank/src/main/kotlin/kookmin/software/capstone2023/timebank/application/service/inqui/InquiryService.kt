@@ -151,7 +151,7 @@ class InquiryService(
         val inquiry = inquiryRepository.findById(id)
             .orElseThrow { NotFoundException(message = "\"Inquiry not found with id: $id\"") }
         inquiry.content = request.updateContent ?: inquiry.content
-        inquiry.title = request.updateTitle ?: inquiry.title
+        inquiry.title = request.updateTitle
         inquiry.inquiryDate = request.updateDate ?: inquiry.inquiryDate
         val updatedInquiry = inquiryRepository.save(inquiry)
         return inquiryToDto(updatedInquiry)

@@ -7,7 +7,6 @@ import kookmin.software.capstone2023.timebank.domain.model.InquiryStatus
 import kookmin.software.capstone2023.timebank.domain.repository.CommentRepository
 import kookmin.software.capstone2023.timebank.domain.repository.InquiryRepository
 import kookmin.software.capstone2023.timebank.domain.repository.UserJpaRepository
-import kookmin.software.capstone2023.timebank.presentation.api.auth.model.UserContext
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -51,7 +50,11 @@ class CommentService(
      * 댓글 생성 service (user)
      */
     @Transactional
-    fun createComment(inquiryId: Long, request: CommentCreateRequest, userId: Long, accountType: AccountType): CommentDto {
+    fun createComment(
+            inquiryId: Long, request: CommentCreateRequest,
+            userId: Long,
+            accountType: AccountType,
+    ): CommentDto {
         val user = userJpaRepository.findByIdOrNull(userId)
             ?: throw UnauthorizedException(message = "\"User not found with id: ${userId}\"")
         val inquiry = inquiryRepository.findByIdOrNull(inquiryId)
