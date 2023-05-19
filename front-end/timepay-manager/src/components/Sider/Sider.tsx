@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, MenuProps } from 'antd';
 import {
+  AccountBookOutlined,
   MailOutlined,
   PayCircleOutlined,
   TeamOutlined,
@@ -18,11 +19,11 @@ export function Sider() {
         label: '관리 메뉴',
         children: [
           {
-            key: PATH.USER_PAGE,
-            label: '사용자 관리',
+            key: PATH.BANK_ACCOUNT_PAGE,
+            label: '계좌 관리',
             icon: (
-              <Link to={PATH.USER_PAGE}>
-                <TeamOutlined />
+              <Link to={PATH.BANK_ACCOUNT_PAGE}>
+                <AccountBookOutlined />
               </Link>
             ),
           },
