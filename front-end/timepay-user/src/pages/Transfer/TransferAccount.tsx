@@ -9,7 +9,6 @@ import "../../styles/css/Transfer/transfer_account.css";
 
 function TransferAccount() {
     const [account, setAccount] = useState("");
-    const [owner, setOwner] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
@@ -18,27 +17,28 @@ function TransferAccount() {
     const [accountExist, setAccountExist] = useState(false);
 
     const handleNext =  async () =>{
-        await axios.get(PATH.SERVER + `/api/v1/bank/account/${account}`, {
+        let accountFormat = account;
+        if (accountFormat.length === 6){
+            accountFormat = `${accountFormat.slice(0,2)}-${accountFormat.slice(2,4)}-${accountFormat.slice(4,6)}`
+        }
+        await axios.get(PATH.SERVER + `/api/v1/bank/account/${accountFormat}`, {
             headers:{
             'Authorization':`Bearer ${accessToken}`
             }
         }).
         then(response => {
-            //console.log(response.data);
             if(response.status === 200) {
                 setAccountExist(true);
-                navigate("/transfer/amount", {state : {accessToken : accessToken, account: account, owner: response.data['ownerName']}});
+                navigate("/transfer/amount", {state : {accessToken : accessToken, account: accountFormat, owner: response.data['ownerName']}});
             }
         }).
         catch(function(error){
-            console.clear();
+            console.log(error);
         })
 
         if(accountExist === false || account ===""){
             setError("계좌번호 오류. 다시 입력해주세요.")    
         }
-        //console.log("clicked : " + account);
-        //window.location.href = "/transfer/amount" > Link 태그로 대체
     };
 
     const setHeaderTitle = useSetRecoilState(headerTitleState);

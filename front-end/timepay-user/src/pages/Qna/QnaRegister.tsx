@@ -17,6 +17,7 @@ function QnaRegister() {
     const accessToken = window.localStorage.getItem("access_token");
 
     const handleRegister = (e:React.MouseEvent<HTMLButtonElement>) => {
+        console.log(accessToken);
         axios.post(PATH.SERVER + `/api/v1/inquiries`, 
         {
             title: qnaTitle,
@@ -39,15 +40,14 @@ function QnaRegister() {
     });
 
     return(
-
-            <div>
+        <>
+            <div className="mainGrid">
                     <input onChange={e => setQnaTitle(e.target.value)} placeholder="문의 제목 입력" className="inputTitle"></input>
                     <textarea onChange={e => setQnaDetail(e.target.value)} placeholder="문의 내용 입력" className="inputContent"></textarea>
-                    {/* <input type="image" className="inputImage"></input> */}
 
                     <button onClick={handleRegister} className="registerButton">문의 등록</button>
             </div>
-
+        </>
     );
 
 

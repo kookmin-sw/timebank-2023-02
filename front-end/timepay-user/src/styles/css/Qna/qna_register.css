@@ -1,10 +1,21 @@
 
-.inputTitle {
+.mainGrid{
+    position : relative;
+    top: 0%;
+    left: 4%;
+
+    height:100%;
+
+
+}
+
+.mainGrid .inputTitle {
     position:relative;
-    margin:4%;
+    top:0%;
+
     margin-bottom:0%;
 
-    width:92%;
+    width:100%;
 
     font-family: 'Lato';
     font-style: normal;
@@ -12,30 +23,33 @@
 
 }
 
-.inputContent{
-    position: relative;
-
-    margin:4%;
-    width:92%;
+.mainGrid .inputContent{
+    position:relative;
+    top:3%;
+    width:100%;
     min-height:300px;
-    
+    height:90%;
+
     font-family: 'Lato';
     font-style: normal;
     font-weight : 600;
 }
 
-.registerButton {
+.mainGrid .registerButton {
+
+    /* position */
+    position: relative;
+    top: 6%;
+
     /* shape */
-    width: 92%;
+    width: 100%;
     min-height : 30px;
+    height: 6%;
     border-radius: 20px;
 
     background: #F1AF23;
     border: 0px solid #000000;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-    /* position */
-    margin:4%;
     
     /* font */
     font-family: 'Lato';

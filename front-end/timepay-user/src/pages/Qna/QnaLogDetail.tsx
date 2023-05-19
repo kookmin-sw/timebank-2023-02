@@ -28,12 +28,12 @@ function QnaLogDetail() {
     const id = location.state.Qna;
     const content = location.state.Content;
     const title = location.state.Title;
+    const userid= location.state.userID;
 
     const [qnaDetail, setQnaDetail] = useState<QNADETAIL[]>([]);
     const [openModal, setOpenModal] = useState(false);
     const [comment, setComment] = useState("");
-    const userid = "1";
-    const accessToken = 1;
+    const accessToken = window.localStorage.getItem("access_token");
 
     const handleModal = () => {
         setOpenModal(true);
@@ -41,11 +41,10 @@ function QnaLogDetail() {
 
     const handleRegister = async () => {
         try{
-        await axios.post(PATH.SERVER + `api/v1/inquiries/${id}/comments`, 
+        await axios.post(PATH.SERVER + `/api/v1/inquiries/${id}/comments`, 
         {
             content: comment,
-            userId: userid,
-            inquiryId : id
+            commentDate : moment().format("YYYY-MM-DDTHH:mm:ss.SSS")
         },
         {
             headers:{'Authorization':`Bearer ${accessToken}`},
@@ -61,7 +60,7 @@ function QnaLogDetail() {
     };
 
     const getQnaDetail = () => {
-        axios.get<QNADETAIL[]>(PATH.SERVER + `api/v1/inquiries/${id}/comments`, {
+        axios.get<QNADETAIL[]>(PATH.SERVER + `/api/v1/inquiries/${id}/comments`, {
             headers:{
             'Authorization':`Bearer ${accessToken}`
             }
@@ -77,7 +76,7 @@ function QnaLogDetail() {
     useEffect(() => {
       setHeaderTitle('문의 상세 내역');
       getQnaDetail();
-      console.log("loaded");
+      //console.log("loaded");
     }, [openModal]);
 
     return(

@@ -6,6 +6,7 @@ import { PATH } from '../../utils/paths';
 import { Select, Card } from 'antd';
 import axios from "axios";
 
+import searchIcon from '../../assets/images/searchButton.png';
 import "../../styles/css/Qna/qna_logmain.css";
 
 type QNA = {
@@ -25,10 +26,12 @@ function QnaLogMain() {
         {id:0, value: '전체',}, {id:1, value: '지난 1개월간',}, {id:2, value: '지난 3개월간',}, {id:3, value: '지난 6개월간',}, 
     ];
 
+
     const navigate = useNavigate();
 
     const [qnaResponse, setQnaResponse] = useState<QNA[]>([]);
     const [filteredQnaResponse, setFilteredQnaResponse] = useState<QNA[]>([]);
+
 
     const [selectedTerm, setSelectedTerm] = useState("전체");
     const [searchVal, setSearchVal] = useState("");
@@ -37,8 +40,10 @@ function QnaLogMain() {
     const [selectedContent, setSelectedContent] = useState("");
     const [selectedTitle, setSelectedTitle] = useState("");
     const prevValue = useRef({selectedQna, selectedContent});
+
+
+    const [userInf, setUserInf] = useState("");
     const accessToken = window.localStorage.getItem("access_token");
-    const userID = 1;
 
 
     function getCurrentDate(): string {
@@ -49,27 +54,25 @@ function QnaLogMain() {
         return `${year}-${month}-${day}`;
     };
 
-    const handleSelect = (term:string) =>{
-        setSelectedTerm(term);
-        //console.log(value);
-    };
-
-    const getUserId = () =>{
-        axios.get(PATH.SERVER + `/api/v1/users/me`, {
+    // 문의 내역 받아오기
+    const getQnas = async () => {
+        let userID = "";
+        await axios.get(PATH.SERVER + `/api/v1/users/me`, {
             headers:{
                 'Authorization' : `Bearer ${accessToken}`
             }
         }
         ).then(response => {
-            console.log(response.data);
+            const data = response.data;
+            userID = data.id;
+            setUserInf(userID);
         }).catch(function(error){
-
+            console.log(error);
         });
-    }
-
-    const getQnas = () => {axios.get<QNA[]>(PATH.SERVER + `/api/v1/inquiries/users/${userID}`, {
+    
+      await axios.get<QNA[]>(PATH.SERVER + `/api/v1/inquiries/users/${userID}`, {
         headers:{
-        'Authorization':`Bearer ${accessToken}`
+            'Authorization':`Bearer ${accessToken}`
         }
       }).
       then(response => {
@@ -83,14 +86,13 @@ function QnaLogMain() {
 
     const handleCard = useCallback((selectedQna:string) =>{
         //console.log(selectedContent);
-        navigate(`/qna/detail/${selectedQna}`, {state:{Qna : selectedQna, Content : selectedContent, Title : selectedTitle}});
+        navigate(`/qna/detail/${selectedQna}`, {state:{Qna : selectedQna, Content : selectedContent, Title : selectedTitle, userID : userInf}});
     },[navigate, selectedQna, selectedContent]
     );
 
     const setHeaderTitle = useSetRecoilState(headerTitleState);
     useEffect(() => {
-        setHeaderTitle("문의 내역");
-        getUserId();
+        setHeaderTitle("문의 내역");     
         getQnas();
         if(selectedQna!==""&&(prevValue.current.selectedQna!==selectedQna && prevValue.current.selectedContent!==selectedContent)){
             handleCard(selectedQna);
@@ -130,20 +132,19 @@ function QnaLogMain() {
  
     }
 
-    const handleSearch = (e:React.MouseEvent<HTMLButtonElement>) =>{
+    const handleSearch = () =>{
         filterQnas(selectedTerm, searchVal);
         //console.log(selectedTerm+ " " +searchVal)
     };  
 
     return(
-        <>
-            <div>
-
-                <div>
+        
+            <>
+                <div className="mainGrid">
                     <div className="filterGrid">
                         <Select options = {terms} size = 'small' dropdownStyle={{textAlign : 'center' }} onChange={e => setSelectedTerm(e)} defaultValue={"전체"} className="selectTerm"></Select>
                         <input onChange={e => setSearchVal(e.target.value)} placeholder="문의 제목 입력" value={searchVal} className="searchBox"></input>
-                        <button onClick={handleSearch} className="searchButton">&#128270;</button>
+                        <img src={searchIcon} alt="" onClick={handleSearch} className="searchButton"></img>
                     </div>
                     
                     <Card className="mainBox">
@@ -158,8 +159,8 @@ function QnaLogMain() {
 
                 <div>
                 </div>
-            </div>
-        </>
+            </>
+        
     );
 
 
