@@ -181,6 +181,12 @@ input:focus {
   padding: 20px;
   text-align: center;
 }
+.balance {
+  font-family: 'Inter';
+  font-size: 25px;
+  padding-top: 10px;
+  text-align: center;
+}
 
 .main-page .user-account .bottom-btn {
   background-color: #f1af23;

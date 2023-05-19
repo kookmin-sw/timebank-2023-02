@@ -177,7 +177,7 @@ const UserMainPage = () => {
                           - {transaction.amount}
                         </span>
                         <span style={{ fontWeight: 'bold', color: '#F1AF23' }}>
-                          TP
+                           TP
                         </span>
                       </div>
                     ) : (
@@ -186,7 +186,7 @@ const UserMainPage = () => {
                           + {transaction.amount}
                         </span>
                         <span style={{ fontWeight: 'bold', color: '#F1AF23' }}>
-                          TP
+                           TP
                         </span>
                       </div>
                     )}
