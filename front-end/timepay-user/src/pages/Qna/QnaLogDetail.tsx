@@ -49,7 +49,7 @@ function QnaLogDetail() {
         {
             headers:{'Authorization':`Bearer ${accessToken}`},
         }).then(function(response){
-            console.log(response);
+            //console.log(response);
         }).catch(function(error){
             console.log(error);
         })
@@ -88,7 +88,7 @@ function QnaLogDetail() {
                         {qnaDetail.map((answer) => (
                             
                             <Card title={<span style={answer.userId==userid ? {color: 'orange'} : {color: 'red'}}>{answer.userId==userid ? "문의내용" : "답변"}</span>} extra={moment(answer.commentDate).format('YYYY-MM-DD HH:mm')}  key={answer.commentid} className="detailBox">
-                                <p>{"content : " + answer.content}</p>
+                                <p>{answer.content}</p>
 
                             </Card>
                         ))}

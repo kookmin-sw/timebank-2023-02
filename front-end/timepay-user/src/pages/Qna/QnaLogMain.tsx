@@ -94,7 +94,7 @@ function QnaLogMain() {
     useEffect(() => {
         setHeaderTitle("문의 내역");     
         getQnas();
-        console.log(1);
+        //console.log(1);
       }, []);
 
     const filterQnas = (searchTerm: string, searchText: string) => {
@@ -148,8 +148,8 @@ function QnaLogMain() {
                     <Card className="mainBox">
                         {filteredQnaResponse.map((qna) => (
                             <Card key={qna.inquiryid} onClick={e=>{handleCard(qna.inquiryid, qna.title, qna.content);}} className="clickableDetailBox">
-                                <span className="qnaStatus" style={qna.replyStatus === 'PENDING' ?{color : '#C7C7C7'} : {color : '#F1AF23'}}>{qna.replyStatus === 'PENDING' ? "등록완료" : "답변완료"}</span>
-                                <span className="qnaTitle">Title : {qna.title}</span>
+                                <span className="qnaStatus" style={qna.replyStatus === 'ANSWERED' ?{color : '#F1AF23'} : {color : '#C7C7C7'}}>{qna.replyStatus === 'ANSWERED' ? "답변완료" : "등록완료"}</span>
+                                <span className="qnaTitle">{qna.title}</span>
                             </Card>
                         ))}
                     </Card>
