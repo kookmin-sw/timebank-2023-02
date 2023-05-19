@@ -86,10 +86,14 @@ const UserMainPage = () => {
         console.log(
           `getRecentRemittanceAccount status code : ${res.status}\nresponse data: ${res.data}`,
         );
+<<<<<<< Updated upstream
 
         setRecentRemittanceAccount(res.data.content);
         //console.log(res.data.content);
       
+=======
+        setRecentRemittanceAccount(res.data.content);
+>>>>>>> Stashed changes
       });
     } catch (e) {
       console.error(e);
@@ -174,15 +178,24 @@ const UserMainPage = () => {
                     <div style={{ fontSize: '16px' }}>
                       <div style={{ display: 'flex' }}>
                         <span style={{ fontWeight: 'bold' }}>
-                          // TODO : transaction.name
-                        </span>{' '}
+                          {transaction.code === 'DEPOSIT'
+                            ? transaction.senderAccountOwnerName
+                            : transaction.receiverAccountOwnerName}
+                        </span>
+                        {'  '}
                         님 <br />
                       </div>
                       <span style={{ fontWeight: 'bold' }}>계좌번호</span>{' '}
                       <span style={{ color: '#F1AF23' }}>
+<<<<<<< Updated upstream
                         {transaction.receiverBankAccountNumber === accountNumber
                           ? transaction.senderBankAccountNumber
                           : accountNumber}
+=======
+                        {transaction.code === 'DEPOSIT'
+                          ? transaction.senderBankAccountNumber
+                          : transaction.receiverBankAccountNumber}
+>>>>>>> Stashed changes
                       </span>
                     </div>
                     {transaction.code === 'DEPOSIT' ? (
@@ -191,7 +204,7 @@ const UserMainPage = () => {
                           + {transaction.amount}
                         </span>
                         <span style={{ fontWeight: 'bold', color: '#F1AF23' }}>
-                           TP
+                          TP
                         </span>
                       </div>
                     ) : (
@@ -200,7 +213,7 @@ const UserMainPage = () => {
                           - {transaction.amount}
                         </span>
                         <span style={{ fontWeight: 'bold', color: '#F1AF23' }}>
-                           TP
+                          TP
                         </span>
                       </div>
                     )}

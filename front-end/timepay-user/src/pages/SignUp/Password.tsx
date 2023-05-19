@@ -21,9 +21,6 @@ async function setUserPassWord(password: string) {
     }).then((res) => {
       console.log(`status code : ${res.status}\nresponse data: ${res.data}`);
       const data = res.data;
-      window.localStorage.setItem('balance', data.balance);
-      window.localStorage.setItem('accountNumber', data.accountNumber);
-      window.localStorage.setItem('bankAccountId', data.bankAccountId);
     });
   } catch (e) {
     console.error(e);
@@ -81,17 +78,21 @@ const Password = () => {
             }}
           />
         </div>
-        {isSamePassword && 
-        <label style={{
-          position: "absolute",
-          top: "65%",
-          left: "18%",
-          textAlign: "center",
-          color: "#FF2E00",
-          fontFamily: "Lato",
-          fontSize: "18px",
-        }}
-        >비밀번호 오류. 다시 입력해주세요.</label>}
+        {isSamePassword && (
+          <label
+            style={{
+              position: 'absolute',
+              top: '65%',
+              left: '18%',
+              textAlign: 'center',
+              color: '#FF2E00',
+              fontFamily: 'Lato',
+              fontSize: '18px',
+            }}
+          >
+            비밀번호 오류. 다시 입력해주세요.
+          </label>
+        )}
         <div className="finish-btn">
           <button
             onClick={() =>
@@ -109,15 +110,15 @@ const Password = () => {
 export default Password;
 
 <div
-style={{
-  position: "absolute",
-  top: "28%",
-  left: "10%",
-  textAlign: "center",
-  color: "#FF2E00",
-  fontFamily: "Lato",
-  fontSize: "18px",
-}}
+  style={{
+    position: 'absolute',
+    top: '28%',
+    left: '10%',
+    textAlign: 'center',
+    color: '#FF2E00',
+    fontFamily: 'Lato',
+    fontSize: '18px',
+  }}
 >
-비밀번호 오류. 다시 입력해주세요.
-</div>
+  비밀번호 오류. 다시 입력해주세요.
+</div>;
