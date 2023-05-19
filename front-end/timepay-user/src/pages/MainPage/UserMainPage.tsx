@@ -94,7 +94,10 @@ const UserMainPage = () => {
   const handleOnClickLinkBtn = useCallback(
     (accountNumber: string) => {
       if (accountNumber === '') navigate(PATH.PASSWORD);
-      else navigate(PATH.TRANSFER);
+      else
+        navigate(PATH.TRANSFER, {
+          state: { account: accountNumber, balance: balance },
+        });
     },
     [navigate],
   );
