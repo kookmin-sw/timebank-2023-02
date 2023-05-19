@@ -51,9 +51,10 @@ class CommentService(
      */
     @Transactional
     fun createComment(
-            inquiryId: Long, request: CommentCreateRequest,
-            userId: Long,
-            accountType: AccountType,
+        inquiryId: Long,
+        request: CommentCreateRequest,
+        userId: Long,
+        accountType: AccountType,
     ): CommentDto {
         val user = userJpaRepository.findByIdOrNull(userId)
             ?: throw UnauthorizedException(message = "\"User not found with id: ${userId}\"")
