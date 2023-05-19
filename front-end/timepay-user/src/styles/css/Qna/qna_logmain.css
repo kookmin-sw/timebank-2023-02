@@ -67,7 +67,7 @@
     overflow: auto;
 }
 
-.clickableDetailBox{
+.mainGrid .mainBox .clickableDetailBox{
     margin-bottom:2%;
     cursor:pointer;
     width : 100%;

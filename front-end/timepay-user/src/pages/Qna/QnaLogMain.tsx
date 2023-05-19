@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { headerTitleState } from '../../states/uiState';
@@ -84,20 +84,18 @@ function QnaLogMain() {
         console.log(error)})
     };
 
-    const handleCard = useCallback((selectedQna:string) =>{
+    const handleCard = useCallback((id:string, title:string, content:string) =>{
         //console.log(selectedContent);
-        navigate(`/qna/detail/${selectedQna}`, {state:{Qna : selectedQna, Content : selectedContent, Title : selectedTitle, userID : userInf}});
-    },[navigate, selectedQna, selectedContent]
+        navigate(`/qna/detail/${id}`, {state:{Qna : id, Content : content, Title : title, userID : userInf}});
+    },[navigate, selectedQna, selectedContent, selectedTitle, userInf]
     );
 
     const setHeaderTitle = useSetRecoilState(headerTitleState);
     useEffect(() => {
         setHeaderTitle("문의 내역");     
         getQnas();
-        if(selectedQna!==""&&(prevValue.current.selectedQna!==selectedQna && prevValue.current.selectedContent!==selectedContent)){
-            handleCard(selectedQna);
-        }
-      }, [handleCard, selectedQna, selectedContent]);
+        console.log(1);
+      }, []);
 
     const filterQnas = (searchTerm: string, searchText: string) => {
 
@@ -149,7 +147,7 @@ function QnaLogMain() {
                     
                     <Card className="mainBox">
                         {filteredQnaResponse.map((qna) => (
-                            <Card key={qna.inquiryid} onClick={e=>{setSelectedTitle(qna.title);setSelectedQna(qna.inquiryid);setSelectedContent(qna.content);}} className="clickableDetailBox">
+                            <Card key={qna.inquiryid} onClick={e=>{handleCard(qna.inquiryid, qna.title, qna.content);}} className="clickableDetailBox">
                                 <span className="qnaStatus" style={qna.replyStatus === 'PENDING' ?{color : '#C7C7C7'} : {color : '#F1AF23'}}>{qna.replyStatus === 'PENDING' ? "등록완료" : "답변완료"}</span>
                                 <span className="qnaTitle">Title : {qna.title}</span>
                             </Card>

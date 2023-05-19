@@ -1,5 +1,5 @@
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { headerTitleState } from '../../states/uiState';
@@ -17,7 +17,6 @@ function QnaRegister() {
     const accessToken = window.localStorage.getItem("access_token");
 
     const handleRegister = (e:React.MouseEvent<HTMLButtonElement>) => {
-        console.log(accessToken);
         axios.post(PATH.SERVER + `/api/v1/inquiries`, 
         {
             title: qnaTitle,
@@ -28,7 +27,6 @@ function QnaRegister() {
 
         }).then(function(response){
             navigate(`/main`);
-            console.log(response);
         }).catch(function(error){
             console.log(error);
         })
@@ -54,5 +52,3 @@ function QnaRegister() {
 }
 
 export default QnaRegister;
-
-//inputTitle, inputDetail auto Resize방법 찾아서 적용
