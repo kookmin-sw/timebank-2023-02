@@ -15,8 +15,8 @@ type Transaction = {
   "code": string,
   "amount": string,
   "status": string,
-  "receiverAccountNumber": string,
-  "senderAccountNumber": string,
+  "receiverBankAccountNumber": string,
+  "senderBankAccountNumber": string,
   "balanceSnapshot": string,
   "transactionAt": string,
   "createdAt":  string,
@@ -62,12 +62,12 @@ export function TransferPage() {
     },
     {
       title: 'Receiver Account Number',
-      dataIndex: 'receiverAccountNumber',
+      dataIndex: 'receiverBankAccountNumber',
       key: 'receiverAccountNumber',
     },
     {
       title: 'Sender Account Number',
-      dataIndex: 'senderAccountNumber',
+      dataIndex: 'senderBankAccountNumber',
       key: 'senderAccountNumber',
     },
     {
@@ -79,28 +79,21 @@ export function TransferPage() {
       title: 'Transaction At',
       dataIndex: 'transactionAt',
       key: 'transactionAt',
+      render: (date:string) => moment(date).format('YY-MM-DD HH:mm:ss')
+      
     },
-    {
-      title: 'Created At',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-    },
-    {
-      title: 'Updated At',
-      dataIndex: 'updatedAt',
-      key: 'updatedAt',
-    },
+
   ];
   const getQnas = () => {
-  axios.get<Transaction[]>(PATH.SERVER + `/api/v1/managers/${branchId}/transactions`, {        
+  axios.get(PATH.SERVER + `/api/v1/managers/${branchId}/transactions`, {        
       headers:{
       'Authorization':`Bearer ${accessToken}`
       }
   }).
   then(response => {
-      console.log(response.data);
-      //setQnaResponse(response.data);
-      //setFilteredQnaResponse(response.data);
+      console.log(response.data.content);
+      setQnaResponse(response.data.content);
+      setFilteredQnaResponse(response.data.content);
   }).
   catch(function(error){
       console.log(error)})
@@ -117,13 +110,13 @@ export function TransferPage() {
 
   return (
     <div className='background'>
-    <Card size = 'small' className='searchBox'>
-        <span>검색어</span>
-        <input onChange={(e) => setFilteringTitle(e.target.value)} className="inputbox" placeholder='제목, 내용, 혹은 작성자 입력'></input>
-        <button onClick={() => filterQnas(filteringTitle, filteringStatus)} className="searchButton">검색</button>
-    </Card>
-    
-
+      <Card size = 'small' className='searchBox'>
+          <span>검색어</span>
+          <input onChange={(e) => setFilteringTitle(e.target.value)} className="inputbox" placeholder='제목, 내용, 혹은 작성자 입력'></input>
+          <button onClick={() => filterQnas(filteringTitle, filteringStatus)} className="searchButton">검색</button>
+      </Card>
+      
+      <Table columns={columns} dataSource={filteredQnaResponse} rowKey="id" size="middle" className='table' />
     </div>
   );
 }
