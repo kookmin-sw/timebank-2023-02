@@ -9,8 +9,11 @@ import { ListBankAccountResponseData, listBankAccount } from '../../api/api';
 import { AxiosError } from 'axios';
 import { message } from 'antd';
 import { usePagination } from '../../hooks/usePagination';
+import { useAuth } from '../../hooks/useAuth';
 
 export function BankAccountPage() {
+  const auth = useAuth();
+
   const pagination = usePagination();
   const [searchFormData, setSearchFormData] =
     useState<BankAccountSearchFormValues>();
@@ -21,7 +24,10 @@ export function BankAccountPage() {
   >({
     queryKey: ['ListBankAccount', pagination, searchFormData],
     queryFn: () => {
-      return listBankAccount({
+      const accessToken = auth.accessToken;
+      if (!accessToken) throw new Error('accessToken이 없습니다.');
+
+      return listBankAccount(accessToken, {
         bankAccountNumber: searchFormData?.bankAccountNumber,
         userId: searchFormData?.userId,
         userName: searchFormData?.userName,

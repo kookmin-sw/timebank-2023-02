@@ -18,7 +18,7 @@ export const BaseLayout = () => {
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
-          justifyContent: 'flex-start',
+          justifyContent: 'space-between',
           borderBottom: `1px solid ${token.colorBorderSecondary}`,
         }}
       >
