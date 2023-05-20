@@ -6,6 +6,7 @@ import java.math.BigDecimal
 interface TransferService {
     fun transfer(request: TransferRequest): BankAccountTransaction
     data class TransferRequest(
+        val accountId: Long,
         val senderAccountNumber: String,
         val receiverAccountNumber: String,
         val amount: BigDecimal,

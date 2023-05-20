@@ -28,6 +28,7 @@ class BankTransferController(
     ): BankFundTransferResponseData {
         val response = transferService.transfer(
             TransferService.TransferRequest(
+                accountId = userContext.accountId,
                 senderAccountNumber = data.senderBankAccountNumber,
                 receiverAccountNumber = data.receiverBankAccountNumber,
                 amount = data.amount,
