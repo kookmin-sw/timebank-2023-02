@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { headerTitleState } from '../../states/uiState';
 import moment from "moment";
@@ -16,7 +16,6 @@ function TransferLog() {
     const amount = location.state.amount;
     const name = location.state.name;
 
-    const [message, setMessage] = useState("");
 
     const setHeaderTitle = useSetRecoilState(headerTitleState);
 
@@ -35,7 +34,6 @@ function TransferLog() {
                 <p>금액 : {amount}</p>
                 <p>이름 : {name}</p>
                 <p>거래일시 : {moment().format('YYYY-MM-DD HH:mm')}</p>
-                <p>{message}</p>
                 </Card>
                 
                 </div>

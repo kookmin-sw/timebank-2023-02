@@ -38,7 +38,14 @@
     width: 80%;
     height: 100%;
 
+    padding: 8px;
     border-radius: 10px;
+
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #000000;
 }
 .registerBox .status{
     position:absolute;

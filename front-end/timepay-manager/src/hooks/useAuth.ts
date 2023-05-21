@@ -22,9 +22,14 @@ export function useAuth() {
         {
           onSuccess: (data) => {
             console.info('로그인 성공', data);
+            console.log(data);
+            const token = {
+              accessToken : data.accessToken
+            };
             setAuth({
               accessToken: data.accessToken,
             });
+            localStorage.setItem('auth', JSON.stringify(token));
           },
           onError: (error) => {
             if (error instanceof AxiosError) {
@@ -39,6 +44,7 @@ export function useAuth() {
     },
     logout: () => {
       setAuth({});
+      localStorage.removeItem('auth');
     },
   };
 }

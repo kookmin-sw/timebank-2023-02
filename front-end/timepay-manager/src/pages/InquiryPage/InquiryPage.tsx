@@ -8,6 +8,7 @@ import { ColumnsType } from 'antd/es/table';
 import { useNavigate } from 'react-router-dom';
 
 import { PATH } from '../../constants/path';
+import { useAuth } from '../../hooks/useAuth';
 import './inquiry_main.css'
 
 
@@ -17,19 +18,24 @@ type QNA = {
     "content": string,
     "inquiryDate": string,
     "replyStatus": string,
-    "userId": string
+    "userId": string,
+    "username": string
 }
 
 export function InquiryPage() {
     const navigate = useNavigate();
-    
+    const auth = useAuth();
+
     const [qnaResponse, setQnaResponse] = useState<QNA[]>([]);
     const [filteredQnaResponse, setFilteredQnaResponse] = useState<QNA[]>([]);
 
     const [filteringStatus, setFilteringStatus] = useState("")
     const [filteringTitle, setFilteringTitle] = useState("");
 
-    const accessToken = "1";
+    const accessToken = auth.accessToken;
+    if (!accessToken) throw new Error('accessToken이 없습니다.');
+    
+
 
     const columns: ColumnsType<QNA> = [
         {
@@ -41,13 +47,14 @@ export function InquiryPage() {
                 let content = '';
                 let color = '';
 
-                if (text === 'PENDING') {
-                    content = '답변대기';
-                    color = '#F1AF23';
-                }
-                else {
+                if (text === 'ANSWERED') {
                     content = '답변완료';
                     color = '#C7C7C7';
+
+                }
+                else {
+                    content = '답변대기';
+                    color = '#F1AF23';
                 }
                 return <span style={{color}}>{content}</span>
             }
@@ -60,8 +67,8 @@ export function InquiryPage() {
         },
         {
             title: '작성자',
-            dataIndex: 'userId',
-            key: 'userId',
+            dataIndex: 'username',
+            key: 'username',
             align: 'center',
         },
         {
@@ -122,7 +129,8 @@ export function InquiryPage() {
         if (searchText !== '') {
             filteredData = filteredData.filter(qna =>
                 qna.title.toLowerCase().includes(searchText.toLowerCase()) ||
-                qna.content.toLowerCase().includes(searchText.toLowerCase())
+                qna.content.toLowerCase().includes(searchText.toLowerCase()) ||
+                qna.username.toLowerCase().includes(searchText.toLowerCase())
                 
             );
         }

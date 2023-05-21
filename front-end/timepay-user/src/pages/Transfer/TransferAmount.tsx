@@ -9,7 +9,6 @@ import {PATH} from '../../utils/paths';
 import "../../styles/css/Transfer/transfer_amount.css";
 
 import Modal from 'react-modal';
-import axios from "axios";
 Modal.setAppElement('#root');
 
 function TransferAmount() {
@@ -33,7 +32,7 @@ function TransferAmount() {
     const [errorModal, setErrorModal] = useState(false);
 
     const handleNext = (amount : number) =>{
-        if(amount===0 || isNaN(amount) || amount > parseInt(balance)){
+        if(amount < 1 || isNaN(amount) || amount > parseInt(balance) || !Number.isInteger(amount)){
             setError("금액을 다시 확인해주세요.")
             setErrorModal(true);
         }
@@ -100,10 +99,10 @@ function TransferAmount() {
                     </div>
                     <button onClick={()=>setOpenModal(false)} className="modalClose">&#10005;</button>
                     <button onClick={()=>setOpenModal(false)} className="beforeModal">이전</button>
-                    <Link to="/transfer/password" state={{account : account, amount : amount, name : name}}>"<button onClick={()=>setOpenModal(false)} className="nextModal">다음</button></Link>
+                    <Link to={PATH.TRANSFERPASSWORD} state={{account : account, amount : amount, name : name}}>"<button onClick={()=>setOpenModal(false)} className="nextModal">다음</button></Link>
                 </Modal>
 
-                <Link to="/transfer/account" ><button className="beforeButton">이전</button></Link>
+                <Link to={PATH.TRANSFER} ><button className="beforeButton">이전</button></Link>
                 </div>
             </div>
 

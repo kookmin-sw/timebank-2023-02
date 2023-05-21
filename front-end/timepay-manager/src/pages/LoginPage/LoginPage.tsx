@@ -15,7 +15,7 @@ export function LoginPage() {
 
   useEffect(() => {
     if (auth.isAuthenticated) {
-      navigate('/');
+      navigate('/bank-accounts');
     }
   }, [auth.isAuthenticated]);
 

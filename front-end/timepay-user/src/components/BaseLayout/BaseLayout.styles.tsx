@@ -14,6 +14,7 @@ export const cssBaseLayoutStyle = css`
     font-family: unset !important;
     &.show-header {
       padding-top: 70px; // 헤더에 가려진만큼 패딩 추가
+      height: calc(100vh - 70px);
     }
   }
 `;

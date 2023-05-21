@@ -21,7 +21,6 @@ function TransferPassword() {
     
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    var passwordCorrect = true;
 
     const handleTransfer = async () => {
 
@@ -59,8 +58,7 @@ function TransferPassword() {
 
     return(
         <>
-            <div>
-                
+            <div>  
                 <div>
                 <span className="menuInfo">거래 비밀번호 입력</span>
                 <input type='password' onChange={e => setPassword(e.target.value)} placeholder="비밀번호입력" value={password||""} className="inputBox"></input>
@@ -68,14 +66,12 @@ function TransferPassword() {
                 </div>
 
                 <div>
-                <Link to="/transfer/amount" state={{account : account}}><button className="beforeButton">이전</button></Link>
+                <Link to="/transfer/amount" state={{account : account, owner : name}}><button className="beforeButton">이전</button></Link>
                 <button onClick={handleTransfer} className="nextButton">이체</button>
                 </div>
             </div>
         </>
     );
-{/*<Link to="/transfer/log" state={{account : account, amount : amount, name : name}}>*/}
-
 }
 
 export default TransferPassword;

@@ -1,12 +1,14 @@
-import { Layout, theme } from 'antd';
+import { Layout, theme, Button } from 'antd';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Sider } from '../Sider';
 import { Logo } from '../Logo';
+import { useAuth } from '../../hooks/useAuth';
 
 export const BaseLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { token } = theme.useToken();
+  const auth = useAuth();
 
   return (
     <Layout css={{ minHeight: '100vh' }}>
@@ -23,6 +25,7 @@ export const BaseLayout = () => {
         }}
       >
         <Logo />
+        <Button danger css={{marginRight : '8px'}} onClick={auth.logout}>로그아웃</Button>
       </Layout.Header>
       <Layout>
         <Layout.Sider
