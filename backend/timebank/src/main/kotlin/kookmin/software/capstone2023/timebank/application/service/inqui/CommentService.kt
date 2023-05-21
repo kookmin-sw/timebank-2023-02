@@ -23,12 +23,12 @@ class CommentService(
      * Dto클래스
      */
     data class CommentDto(
-            val commentid: Long,
-            val commentSeq: Long,
-            var content: String,
-            val commentDate: ZonedDateTime,
-            val userId: Long,
-            val inquiryId: Long,
+        val commentid: Long,
+        val commentSeq: Long,
+        var content: String,
+        val commentDate: ZonedDateTime,
+        val userId: Long,
+        val inquiryId: Long,
     )
 
     /**

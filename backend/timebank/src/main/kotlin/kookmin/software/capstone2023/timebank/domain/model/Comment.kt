@@ -15,26 +15,26 @@ import java.time.ZonedDateTime
 @Entity
 @Table(name = "comment")
 data class Comment(
-        @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long = 0,
+    val id: Long = 0,
 
-        @Column(nullable = false)
-        val commentSeq: Long,
+    @Column(nullable = false)
+    val commentSeq: Long,
 
-        @Column(nullable = false, columnDefinition = "TEXT")
-        var content: String,
+    @Column(nullable = false, columnDefinition = "TEXT")
+    var content: String,
 
-        @Column(nullable = false)
-        var commentDate: ZonedDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul")),
+    @Column(nullable = false)
+    var commentDate: ZonedDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul")),
 
-        @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "inquiry_id", nullable = false)
-        val inquiry: Inquiry,
+    val inquiry: Inquiry,
 
-        @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-        val user: User,
+    val user: User,
 ) {
     @Column(name = "user_id", insertable = false, updatable = false)
     val userId: Long = user.id
