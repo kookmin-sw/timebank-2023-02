@@ -53,7 +53,8 @@ function TransferAmount() {
     const setHeaderTitle = useSetRecoilState(headerTitleState);
     useEffect(() => {
       setHeaderTitle('금액 입력');
-    },[]);
+      console.log(1);
+    },[setHeaderTitle]);
 
     return(
         <div>

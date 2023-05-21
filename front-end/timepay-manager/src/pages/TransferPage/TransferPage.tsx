@@ -29,6 +29,7 @@ type searchParams = {
   startDate?: string,
   endDate?: string,
   name?: string,
+  size?: number
 }
 
 export function TransferPage() {
@@ -103,10 +104,13 @@ export function TransferPage() {
 
     
 
-  const params: searchParams = {};
+  const params: searchParams = {
+  };
   if (startDate) params.startDate = startDate;
   if (endDate) params.endDate = endDate;
   if (name) params.name = name;
+  params.size = 500;
+
 
   const getTransaction = () => {
   axios.get(PATH.SERVER + `/api/v1/managers/${branchId}/transactions`, {        

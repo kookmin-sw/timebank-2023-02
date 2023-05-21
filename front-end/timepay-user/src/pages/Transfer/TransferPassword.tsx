@@ -39,7 +39,7 @@ function TransferPassword() {
         })
         .then(function(response){
             setError("");
-            navigate("/transfer/log", {state : {account : account, amount : amount, name : name}});
+            navigate(PATH.TRANSFERLOG, {state : {account : account, amount : amount, name : name}});
         })
         .catch(function(error){
             //console.log(error);
@@ -58,7 +58,8 @@ function TransferPassword() {
 
     return(
         <>
-            <div>  
+            <div>
+                
                 <div>
                 <span className="menuInfo">거래 비밀번호 입력</span>
                 <input type='password' onChange={e => setPassword(e.target.value)} placeholder="비밀번호입력" value={password||""} className="inputBox"></input>
@@ -66,12 +67,13 @@ function TransferPassword() {
                 </div>
 
                 <div>
-                <Link to="/transfer/amount" state={{account : account, owner : name}}><button className="beforeButton">이전</button></Link>
+                <Link to={PATH.TRANSFERAMOUNT} state={{account : account}}><button className="beforeButton">이전</button></Link>
                 <button onClick={handleTransfer} className="nextButton">이체</button>
                 </div>
             </div>
         </>
     );
+
 }
 
 export default TransferPassword;
