@@ -1,9 +1,9 @@
 .mainBox {
     position: absolute;
-    top: 80px;
+    top: 90px;
     left: 4%;
     width:92%;
-    height:70%;
+    height:60%;
 
     overflow: auto;
 }
@@ -78,7 +78,7 @@
 }
 
 .modalClose {
-    background-color:#F1AF23;
+    background-color:#000000;
     border: 0px solid #FFFFFF;
     border-radius:100%;
 

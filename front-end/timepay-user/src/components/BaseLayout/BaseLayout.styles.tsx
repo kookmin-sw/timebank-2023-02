@@ -13,7 +13,7 @@ export const cssBaseLayoutStyle = css`
   main {
     font-family: unset !important;
     &.show-header {
-      //padding-top: 70px; // 헤더에 가려진만큼 패딩 추가
+      padding-top: 70px; // 헤더에 가려진만큼 패딩 추가
     }
   }
 `;
