@@ -10,7 +10,8 @@ import kookmin.software.capstone2023.timebank.domain.repository.UserJpaRepositor
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 @Service
 class CommentService(
@@ -25,7 +26,7 @@ class CommentService(
         val commentid: Long,
         val commentSeq: Long,
         var content: String,
-        val commentDate: LocalDateTime,
+        val commentDate: ZonedDateTime,
         val userId: Long,
         val inquiryId: Long,
     )
@@ -35,7 +36,7 @@ class CommentService(
      */
     data class CommentCreateRequest(
         val content: String,
-        val commentDate: LocalDateTime = LocalDateTime.now(),
+        val commentDate: ZonedDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul")),
     )
 
     /**
@@ -43,7 +44,7 @@ class CommentService(
      */
     data class CommentUpdateRequest(
         val content: String?,
-        val commentDate: LocalDateTime? = LocalDateTime.now(),
+        val commentDate: ZonedDateTime? = ZonedDateTime.now(ZoneId.of("Asia/Seoul")),
     )
 
     /**

@@ -10,7 +10,8 @@ import kookmin.software.capstone2023.timebank.domain.repository.UserJpaRepositor
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 @Service
 class InquiryService(
@@ -26,7 +27,7 @@ class InquiryService(
         val inquiryid: Long,
         val title: String,
         val content: String,
-        val inquiryDate: LocalDateTime,
+        val inquiryDate: ZonedDateTime,
         val replyStatus: InquiryStatus,
         val userId: Long,
         val username: String,
@@ -38,7 +39,7 @@ class InquiryService(
     data class InquiryCreateRequest(
         val title: String,
         val content: String,
-        val inquiryDate: LocalDateTime = LocalDateTime.now(),
+        val inquiryDate: ZonedDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul")),
     )
 
     /**
@@ -47,7 +48,7 @@ class InquiryService(
     data class InquiryUpdateRequest(
         val updateTitle: String,
         val updateContent: String?,
-        val updateDate: LocalDateTime? = LocalDateTime.now(),
+        val updateDate: ZonedDateTime? = ZonedDateTime.now(ZoneId.of("Asia/Seoul")),
     )
 
     /**
@@ -112,7 +113,7 @@ class InquiryService(
      * 기간별 조회 for branch
      */
     fun getInquiriesByPeriod(period: Period): List<InquiryDto> {
-        val end = LocalDateTime.now()
+        val end = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
         val start = end.minusMonths(period.months)
         val inquiries = inquiryRepository.findByInquiryDateBetween(start, end)
         return inquiries.map { inquiryToDto(it) }
@@ -122,7 +123,7 @@ class InquiryService(
      * 기간별 조회 for user
      */
     fun getUserInquiriesByPeriod(period: Period, userId: Long): List<InquiryDto> {
-        val end = LocalDateTime.now()
+        val end = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
         val start = end.minusMonths(period.months)
         val inquiries = inquiryRepository.findByInquiryDateBetweenAndUserId(start, end, userId)
         return inquiries.map { inquiryToDto(it) }
@@ -193,7 +194,7 @@ class InquiryService(
      * 문의 search (동시 조건 검색)
      */
     fun searchInquiries(title: String?, period: Period?, userId: Long?): List<InquiryDto> {
-        val end = LocalDateTime.now()
+        val end = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
         val start = period?.let { end.minusMonths(it.months) }
         val inquiries = inquiryRepository.findAllByTitleAndPeriodAndUserId(title, start, end, userId)
         return inquiries.map { inquiryToDto(it) }

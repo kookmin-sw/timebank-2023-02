@@ -9,7 +9,8 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
-import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 @Entity
 @Table(name = "comment")
@@ -25,7 +26,7 @@ data class Comment(
     var content: String,
 
     @Column(nullable = false)
-    var commentDate: LocalDateTime = LocalDateTime.now(),
+    var commentDate: ZonedDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul")),
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "inquiry_id", nullable = false)
