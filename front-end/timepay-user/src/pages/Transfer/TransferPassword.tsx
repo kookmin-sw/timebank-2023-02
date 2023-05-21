@@ -67,7 +67,7 @@ function TransferPassword() {
                 </div>
 
                 <div>
-                <Link to={PATH.TRANSFERAMOUNT} state={{account : account}}><button className="beforeButton">이전</button></Link>
+                <Link to={PATH.TRANSFERAMOUNT} state={{account : account, owner : name}}><button className="beforeButton">이전</button></Link>
                 <button onClick={handleTransfer} className="nextButton">이체</button>
                 </div>
             </div>
