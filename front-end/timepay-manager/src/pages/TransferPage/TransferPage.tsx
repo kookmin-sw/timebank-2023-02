@@ -29,7 +29,8 @@ type searchParams = {
   startDate?: string,
   endDate?: string,
   name?: string,
-  size?: number
+  size?: number,
+  sort?: string,
 }
 
 export function TransferPage() {
@@ -110,6 +111,7 @@ export function TransferPage() {
   if (endDate) params.endDate = endDate;
   if (name) params.name = name;
   params.size = 500;
+  params.sort = "transactionAt,DESC"
 
 
   const getTransaction = () => {
