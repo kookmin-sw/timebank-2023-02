@@ -11,30 +11,31 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
-import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 @Entity
 @Table(name = "inquiry")
 class Inquiry(
 
-    @Id
+        @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @Column(nullable = false)
+        @Column(nullable = false)
     var title: String,
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+        @Column(nullable = false, columnDefinition = "TEXT")
     var content: String,
 
-    @Column(nullable = false)
-    var inquiryDate: LocalDateTime = LocalDateTime.now(),
+        @Column(nullable = false)
+    var inquiryDate: ZonedDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul")),
 
-    @Enumerated(EnumType.STRING)
+        @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     var replyStatus: InquiryStatus = InquiryStatus.PENDING,
 
-    @ManyToOne(fetch = FetchType.LAZY)
+        @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     val user: User,
 ) {

@@ -6,15 +6,15 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 @Repository
 interface InquiryRepository : JpaRepository<Inquiry, Long> {
     fun findByUser(user: User): List<Inquiry>
     fun findByTitleContainingIgnoreCase(title: String): List<Inquiry>
     fun findByTitleContainingIgnoreCaseAndUserId(title: String, userId: Long): List<Inquiry>
-    fun findByInquiryDateBetween(start: LocalDateTime, end: LocalDateTime): List<Inquiry>
-    fun findByInquiryDateBetweenAndUserId(start: LocalDateTime, end: LocalDateTime, userId: Long): List<Inquiry>
+    fun findByInquiryDateBetween(start: ZonedDateTime, end: ZonedDateTime): List<Inquiry>
+    fun findByInquiryDateBetweenAndUserId(start: ZonedDateTime, end: ZonedDateTime, userId: Long): List<Inquiry>
 
     @Query(
         "SELECT i FROM Inquiry i " +
@@ -25,8 +25,8 @@ interface InquiryRepository : JpaRepository<Inquiry, Long> {
     )
     fun findAllByTitleAndPeriodAndUserId(
         @Param("title") title: String?,
-        @Param("startDate") startDate: LocalDateTime?,
-        @Param("endDate") endDate: LocalDateTime?,
+        @Param("startDate") startDate: ZonedDateTime?,
+        @Param("endDate") endDate: ZonedDateTime?,
         @Param("userId") userId: Long?,
     ): List<Inquiry>
 }
