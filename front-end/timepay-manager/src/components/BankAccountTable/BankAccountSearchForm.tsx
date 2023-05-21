@@ -22,7 +22,7 @@ export function BankAccountSearchForm({ initialValues, onSubmit }: Props) {
   const formStyle = {
     maxWidth: 'none',
     background: token.colorWhite,
-    padding: 24,
+    padding: '16px',
   };
 
   return (

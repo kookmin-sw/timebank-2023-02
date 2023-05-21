@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Button, Space, Table } from 'antd';
 import { BankAccountResponseData } from '../../api/api';
 import { Pagination } from '../../hooks/usePagination';
 import { DateTime } from 'luxon';
@@ -9,8 +9,8 @@ interface Props {
   data: BankAccountResponseData[];
   total: number;
   pagination: Pagination;
-  selectedRowKeys?: React.Key[];
-  onRowSelectionChange?: (selectedRowKeys: React.Key[]) => void;
+  onDepositButtonClick?: (bankAccountNumber: string) => void;
+  onWithdrawButtonClick?: (bankAccountNumber: string) => void;
 }
 
 export function BankAccountTable({
@@ -18,8 +18,8 @@ export function BankAccountTable({
   data,
   total,
   pagination,
-  selectedRowKeys,
-  onRowSelectionChange,
+  onDepositButtonClick,
+  onWithdrawButtonClick,
 }: Props) {
   return (
     <Table
@@ -63,13 +63,29 @@ export function BankAccountTable({
             );
           },
         },
+        {
+          title: '기능',
+          render: (record: BankAccountResponseData) => {
+            return (
+              <Space size="small">
+                <a
+                  href="#"
+                  onClick={() => onDepositButtonClick?.(record.accountNumber)}
+                >
+                  지급
+                </a>
+                <a
+                  href="#"
+                  onClick={() => onWithdrawButtonClick?.(record.accountNumber)}
+                >
+                  회수
+                </a>
+              </Space>
+            );
+          },
+        },
       ]}
-      rowKey={(record) => record.id}
-      rowSelection={{
-        type: 'checkbox',
-        selectedRowKeys: selectedRowKeys ?? [],
-        onChange: onRowSelectionChange,
-      }}
+      rowKey={(record) => record.accountNumber}
       loading={isLoading}
       dataSource={data}
       pagination={{

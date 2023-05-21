@@ -63,3 +63,51 @@ export async function listBankAccount(
   );
   return response.data;
 }
+
+export interface OwnBankAccountResponseData {
+  bankAccountId: number;
+  branchId: number;
+  balance: number;
+  bankAccountNumber: string;
+  ownerName: string;
+  ownerType: string;
+}
+
+export async function listOwnBankAccounts(
+  accessToken: string,
+): Promise<ReadonlyArray<OwnBankAccountResponseData>> {
+  const response = await apiClient.get<OwnBankAccountResponseData[]>(
+    '/api/v1/bank/account',
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
+
+  return response.data;
+}
+
+export interface TransferArgs {
+  accessToken: string;
+  branchBankAccountNumber: string;
+  userBankAccountNumber: string;
+  amount: number;
+}
+
+export async function transfer(args: TransferArgs) {
+  await apiClient.post(
+    '/api/v1/managers/payments',
+    {
+      branchBankAccountNumber: args.branchBankAccountNumber,
+      userBankAccountNumber: args.userBankAccountNumber,
+      isDeposit: args.amount > 0,
+      amount: Math.abs(args.amount),
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${args.accessToken}`,
+      },
+    },
+  );
+}

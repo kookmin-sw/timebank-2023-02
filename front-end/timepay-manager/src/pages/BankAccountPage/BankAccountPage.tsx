@@ -10,11 +10,14 @@ import { AxiosError } from 'axios';
 import { message } from 'antd';
 import { usePagination } from '../../hooks/usePagination';
 import { useAuth } from '../../hooks/useAuth';
+import { TransferModal } from '../../components/TransferModal';
+import { useTransferModal } from '../../hooks/useTransferModal';
 
 export function BankAccountPage() {
   const auth = useAuth();
-
   const pagination = usePagination();
+  const transferModal = useTransferModal();
+
   const [searchFormData, setSearchFormData] =
     useState<BankAccountSearchFormValues>();
 
@@ -55,6 +58,20 @@ export function BankAccountPage() {
         data={listBankAccountQuery.data?.content ?? []}
         total={listBankAccountQuery.data?.totalElements ?? 0}
         pagination={pagination}
+        onDepositButtonClick={(bankAccountNumber) => {
+          transferModal.openModal('deposit', bankAccountNumber);
+        }}
+        onWithdrawButtonClick={(bankAccountNumber) => {
+          transferModal.openModal('withdraw', bankAccountNumber);
+        }}
+      />
+      <TransferModal
+        open={transferModal.open}
+        type={transferModal.transferType}
+        bankAccountNumber={transferModal.bankAccountNumber}
+        onCancel={() => {
+          transferModal.closeModal();
+        }}
       />
     </div>
   );
