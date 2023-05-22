@@ -69,6 +69,9 @@ export function BankAccountPage() {
         open={transferModal.open}
         type={transferModal.transferType}
         bankAccountNumber={transferModal.bankAccountNumber}
+        onChangeType={(type) => {
+          transferModal.setTransferType(type);
+        }}
         onCancel={() => {
           transferModal.closeModal();
         }}

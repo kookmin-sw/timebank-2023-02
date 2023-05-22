@@ -10,6 +10,7 @@ interface Props {
   bankAccountNumber: string;
   open: boolean;
   onCancel?: () => void;
+  onChangeType?: (type: 'deposit' | 'withdraw') => void;
 }
 
 export function TransferModal({
@@ -17,6 +18,7 @@ export function TransferModal({
   bankAccountNumber,
   open,
   onCancel,
+  onChangeType,
 }: Props) {
   const queryClient = useQueryClient();
   const [form] = useForm();
@@ -94,7 +96,12 @@ export function TransferModal({
     >
       <Form form={form}>
         <Form.Item label="이체 구분">
-          <Radio.Group value={type}>
+          <Radio.Group
+            value={type}
+            onChange={(e) => {
+              onChangeType?.(e.target.value);
+            }}
+          >
             <Radio value="deposit">지급</Radio>
             <Radio value="withdraw">회수</Radio>
           </Radio.Group>

@@ -23,6 +23,7 @@ export function useTransferModal() {
   return {
     openModal,
     closeModal,
+    setTransferType,
     open,
     transferType,
     bankAccountNumber,
