@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Space, Table } from 'antd';
 import { BankAccountResponseData } from '../../api/api';
 import { Pagination } from '../../hooks/usePagination';
-import { DateTime } from 'luxon';
+import { DateTime, Duration } from 'luxon';
 
 interface Props {
   isLoading: boolean;
@@ -47,7 +47,11 @@ export function BankAccountTable({
           render: (balance: number) => {
             return (
               <div>
-                {balance}TP ({Math.round(balance / 60)}시간)
+                {balance}TP (
+                {Duration.fromDurationLike({
+                  minute: balance,
+                }).toFormat('h시간 m분')}
+                )
               </div>
             );
           },
