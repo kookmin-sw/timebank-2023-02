@@ -7,8 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import { PATH } from '../../utils/paths';
 
-
-
 const MainHeader = () => {
   const navigate = useNavigate();
   const headerTitle = useRecoilValue(headerTitleState);
@@ -23,6 +21,5 @@ const MainHeader = () => {
     </Layout.Header>
   );
 };
-
 
 export default MainHeader;

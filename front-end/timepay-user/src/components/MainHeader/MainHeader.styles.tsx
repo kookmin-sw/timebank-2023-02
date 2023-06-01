@@ -18,6 +18,8 @@ export const cssMainHeaderStyle = css`
   border: 0;
   border-bottom: 1px solid #cdcdcd;
 
+  z-index: 999;
+
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -25,7 +27,6 @@ export const cssMainHeaderStyle = css`
   align-items: center;
 
   .header-title {
-    
     margin-top: 1px;
   }
   .pad {
@@ -39,4 +40,4 @@ export const cssMainHeaderStyle = css`
     --sab: env(safe-area-inset-bottom);
     --sal: env(safe-area-inset-left);
   }
-`;
+`
