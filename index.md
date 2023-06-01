@@ -24,7 +24,7 @@
 **사용법**
 ---------------------
 
-https://drive.google.com/drive/folders/1qcmmEAAgRLKY_oo00lfMq4uAArouhLMa?usp=sharing
+드라이브 링크 : [사용법](https://drive.google.com/drive/folders/1qcmmEAAgRLKY_oo00lfMq4uAArouhLMa?usp=sharing)
 
 
 **기타**
