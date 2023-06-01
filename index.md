@@ -41,17 +41,17 @@ https://drive.google.com/drive/folders/1qcmmEAAgRLKY_oo00lfMq4uAArouhLMa?usp=sha
 - 계좌 및 시간화폐 관리
 
 
+### 서버 구성
+
+![server_arch](https://raw.githubusercontent.com/kookmin-sw/capstone-2023-45/main/docs/assets/server-arch.png)
+
+
 ## **기술 스택**
 
 | 구분       | 기술                            |
 | ---------- | ------------------------------- |
 | 프론트엔드 | TypeScript, React.js            |
 | 백엔드     | Kotlin, Spring Framework, MySQL |
-
-
-### 서버 구성
-
-![server_arch](https://raw.githubusercontent.com/kookmin-sw/capstone-2023-45/main/docs/assets/server-arch.png)
 
 
 ## **팀 소개**
