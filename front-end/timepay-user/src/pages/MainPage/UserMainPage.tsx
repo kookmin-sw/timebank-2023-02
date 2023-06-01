@@ -5,10 +5,11 @@ import { headerTitleState } from '../../states/uiState';
 import IconGear from '../../assets/images/icon-gear.svg';
 import { PATH } from '../../utils/paths';
 import BaseMenu from '../../components/Menu/BaseMenu';
-import moment from "moment";
+import moment from 'moment';
 import { Tooltip } from 'antd';
 import axios from 'axios';
 import { BankAccountTransaction } from '../../data/BankAccountTransaction';
+import { TransactionSheet } from './TransactionSheet';
 
 const UserMainPage = () => {
   const navigate = useNavigate();
@@ -16,6 +17,9 @@ const UserMainPage = () => {
   const [title, setTitle] = useState<string>('정릉지점');
   const [balance, setBalance] = useState<number>(0);
   const [recentRemittanceAccount, setRecentRemittanceAccount] = useState([]);
+
+  const [openTransaction, setOpenTransaction] = useState(null);
+  const [openTransactionSheet, setOpenTransactionSheet] = useState(false);
 
   async function getUserAccount() {
     try {
@@ -29,8 +33,8 @@ const UserMainPage = () => {
         },
       }).then((res) => {
         /*console.log(
-          `getUserAccount status code : ${res.status}\ndata : ${res.data}`,
-        );*/
+                                  `getUserAccount status code : ${res.status}\ndata : ${res.data}`,
+                                );*/
 
         if (res.data.length === 0) {
           setAccountNumber('');
@@ -64,8 +68,8 @@ const UserMainPage = () => {
         },
       }).then((res) => {
         /*console.log(
-          `getRecentRemittanceAccount status code : ${res.status}\nresponse data: ${res.data}`
-        );*/
+                                  `getRecentRemittanceAccount status code : ${res.status}\nresponse data: ${res.data}`
+                                );*/
         setRecentRemittanceAccount(res.data.content);
       });
     } catch (e) {
@@ -80,15 +84,14 @@ const UserMainPage = () => {
   useEffect(() => {
     setHeaderTitle(null);
     getUserAccount();
-    window.localStorage.removeItem("accountNumber");
-    window.localStorage.removeItem("balance");
+    window.localStorage.removeItem('accountNumber');
+    window.localStorage.removeItem('balance');
   }, []);
 
   const handleOnClickLinkBtn = useCallback(
     (accountNumber: string) => {
       if (accountNumber === '') navigate(PATH.PASSWORD);
-      else
-        navigate(PATH.TRANSFER);
+      else navigate(PATH.TRANSFER);
     },
     [navigate],
   );
@@ -102,6 +105,13 @@ const UserMainPage = () => {
 
   return (
     <>
+      {openTransaction && (
+        <TransactionSheet
+          open={openTransactionSheet}
+          onClose={() => setOpenTransactionSheet(false)}
+          transaction={openTransaction}
+        />
+      )}
       <div className="main-page">
         <div className="main-header">
           <div className="menu">
@@ -128,7 +138,7 @@ const UserMainPage = () => {
               ) : (
                 <span>
                   {balance}
-                  <span style={{ color: '#F1AF23', paddingLeft: '5px' }}>
+                  <span style={{ fontSize: '2rem', marginLeft: '4px' }}>
                     TP
                   </span>
                 </span>
@@ -140,7 +150,11 @@ const UserMainPage = () => {
             className="bottom-btn"
             onClick={() => handleOnClickLinkBtn(accountNumber)}
           >
-            {accountNumber === '' ? <div>계좌 생성하기</div> : <div>보내기</div>}
+            {accountNumber === '' ? (
+              <div>계좌 생성하기</div>
+            ) : (
+              <div>보내기</div>
+            )}
           </div>
         </div>
 
@@ -148,48 +162,73 @@ const UserMainPage = () => {
           <span className="title">거래이력</span>
           <div style={{ paddingTop: '20px' }}>
             {recentRemittanceAccount.map((transaction: any) => {
-              return (
-                <div key={transaction.id}>
-                  <div className="list">
-                    <div style={{ fontSize: '16px' }}>
-                      <div style={{ display: 'flex' }}>
-                        <span style={{ fontWeight: 'bold' }}>
-                          {transaction.code === 'DEPOSIT'
-                            ? transaction.senderAccountOwnerName
-                            : transaction.receiverAccountOwnerName}
-                        </span>
-                        {'  '}
-                        님 <br />
-                      </div>
-                      <span style={{ fontWeight: 'bold' }}>계좌번호</span>{' '}
-                      <span style={{ color: '#F1AF23' }}>
-                        {transaction.code === 'DEPOSIT'
-                          ? transaction.senderBankAccountNumber
-                          : transaction.receiverBankAccountNumber}
-                      </span>
-                    </div>
-                    {transaction.code === 'DEPOSIT' ? (
-                      <div className="balance">
-                        <span style={{ fontWeight: 'bold', color: '#74B4FF' }}>
-                          + {transaction.amount}
-                        </span>
-                        <span style={{ fontWeight: 'bold', color: '#F1AF23' }}>
-                          TP
-                        </span>
-                      </div>
-                    ) : (
-                      <div className="balance">
-                        <span style={{ fontWeight: 'bold', color: '#FF9574' }}>
-                          - {transaction.amount}
-                        </span>
-                        <span style={{ fontWeight: 'bold', color: '#F1AF23' }}>
-                          TP
-                        </span>
-                      </div>
-                    )}
+              const balanceAfterTransaction =
+                transaction.balanceSnapshot +
+                (transaction.code === 'DEPOSIT'
+                  ? transaction.amount
+                  : -transaction.amount);
 
-                    <div className="date">
-                      {moment(transaction.transactionAt).format("yyyy년 M월 d일 h시 m분")}
+              return (
+                <div
+                  key={transaction.id}
+                  onClick={() => {
+                    setOpenTransaction(transaction);
+                    setOpenTransactionSheet(true);
+                  }}
+                >
+                  <div className="list">
+                    <div style={{ padding: '8px' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}
+                      >
+                        <div style={{ display: 'flex' }}>
+                          <span
+                            style={{ fontSize: '1rem', fontWeight: 'bold' }}
+                          >
+                            {transaction.code === 'DEPOSIT'
+                              ? transaction.senderAccountOwnerName
+                              : transaction.receiverAccountOwnerName}
+                          </span>
+                        </div>
+                        {transaction.code === 'DEPOSIT' ? (
+                          <div className="balance">
+                            <span
+                              style={{
+                                fontSize: '1rem',
+                                fontWeight: 'bold',
+                                color: '#F1AF23',
+                              }}
+                            >
+                              + {transaction.amount}TP
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="balance">
+                            <span style={{ fontWeight: 'bold' }}>
+                              - {transaction.amount}
+                            </span>
+                            <span style={{ fontWeight: 'bold' }}>TP</span>
+                          </div>
+                        )}
+                      </div>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}
+                      >
+                        <div className="date">
+                          {moment(transaction.transactionAt).format('hh시 m분')}
+                        </div>
+                        <div className="left-balance">
+                          {balanceAfterTransaction}TP
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
