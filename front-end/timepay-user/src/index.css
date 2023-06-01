@@ -61,7 +61,6 @@ input:focus {
 }
 
 .intro-page .main-title {
-  font-family: 'Lato';
   font-style: normal;
   font-size: 38px;
   line-height: 42px;
@@ -83,7 +82,6 @@ input:focus {
   top: 20%;
   position: relative;
   padding: 30px;
-  font-family: 'Lato';
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -110,10 +108,7 @@ input:focus {
 .sign-up button {
   background-color: #f1af23;
   color: #fff;
-  /* bottom: 10%;
-  position: fixed; */
   margin-top: 60%;
-  font-family: 'Lato';
   font-style: normal;
   font-weight: 700;
   font-size: 20px;
@@ -144,7 +139,6 @@ input:focus {
 }
 
 .main-page .main-header .menu {
-  font-family: 'Lato';
   font-size: 15px;
   font-weight: bold;
   color: #000;
@@ -165,7 +159,6 @@ input:focus {
 
 .main-page .user-account .user-info .title {
   color: #f1af23;
-  font-family: 'Inter';
   font-weight: bold;
   font-size: 18px;
   line-height: 30px;
@@ -176,13 +169,11 @@ input:focus {
 }
 
 .main-page .user-account .user-info .main-amount {
-  font-family: 'Inter';
   font-size: 32px;
   padding: 20px;
   text-align: center;
 }
 .balance {
-  font-family: 'Inter';
   font-size: 25px;
   padding-top: 10px;
   text-align: center;
@@ -193,7 +184,6 @@ input:focus {
   padding: 15px;
   text-align: center;
   color: #fff;
-  font-family: 'Inter';
   font-weight: bold;
   font-size: 20px;
   border-bottom-left-radius: 10px;
@@ -217,7 +207,6 @@ input:focus {
   margin-bottom: 10px;
   line-height: 25px;
   color: #787878;
-  font-family: 'Lato';
   border-radius: 10px;
 }
 
@@ -225,20 +214,17 @@ input:focus {
   display: flex;
   justify-content: flex-end;
   color: #787878;
-  font-family: 'Lato';
   font-size: 15px;
   padding-top: 20px;
 }
 
 .main-page .recent-list .title {
-  font-family: 'Lato';
   font-size: 16px;
   font-weight: 400;
   color: #787878;
 }
 
 .unregist-page .main-header {
-  font-family: 'Lato';
   font-size: 20px;
   font-weight: bold;
   color: #f1af23;
@@ -248,7 +234,6 @@ input:focus {
 }
 
 .unregist-page .regist-body {
-  font-family: 'Lato';
   font-size: 16px;
 }
 
@@ -259,7 +244,6 @@ input:focus {
   margin: 20px;
 }
 .unregist-page .regist-body .info .list {
-  font-family: 'Lato';
   font-size: 16px;
   display: flex;
 }
@@ -267,10 +251,7 @@ input:focus {
 .unregist-page button {
   background-color: #f1af23;
   color: #fff;
-  /* bottom: 10%;
-  position: fixed; */
   margin-top: 60%;
-  font-family: 'Lato';
   font-style: normal;
   font-weight: 700;
   font-size: 20px;
@@ -329,7 +310,6 @@ input:focus {
 }
 
 .unregist-page .edit-body .user-title .name-title {
-  font-family: 'Lato';
   font-size: 32px;
   color: #858585;
   line-height: 25px;
@@ -343,7 +323,6 @@ input:focus {
   margin-top: 40px;
   border: 1px solid #e5e5e5;
   border-radius: 20px;
-  font-family: 'Lato';
   font-size: 18px;
   line-height: 30px;
 }
@@ -364,7 +343,6 @@ input:focus {
   margin-top: 10px;
   border: 1px solid #e5e5e5;
   border-radius: 15px;
-  font-family: 'Lato';
   font-size: 18px;
   line-height: 30px;
 }

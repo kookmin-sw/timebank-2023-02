@@ -86,7 +86,6 @@ const Password = () => {
               left: '18%',
               textAlign: 'center',
               color: '#FF2E00',
-              fontFamily: 'Lato',
               fontSize: '18px',
             }}
           >
@@ -116,7 +115,6 @@ export default Password;
     left: '10%',
     textAlign: 'center',
     color: '#FF2E00',
-    fontFamily: 'Lato',
     fontSize: '18px',
   }}
 >

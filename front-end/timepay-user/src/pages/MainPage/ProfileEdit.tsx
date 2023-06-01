@@ -299,7 +299,6 @@ const ProfileEdit = () => {
                         <div style={{ padding: '20px 30px' }}>
                           <span
                             style={{
-                              fontFamily: 'Lato',
                               fontSize: '22px',
                               fontWeight: '500',
                             }}
@@ -326,7 +325,6 @@ const ProfileEdit = () => {
                               left: '10%',
                               textAlign: 'center',
                               color: '#FF2E00',
-                              fontFamily: 'Lato',
                               fontSize: '18px',
                             }}
                           >
@@ -346,7 +344,6 @@ const ProfileEdit = () => {
                               color: '#fff',
                               padding: '13px 35px',
                               borderRadius: '35px',
-                              fontFamily: 'Lato',
                               fontSize: '20px',
                               boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                               fontWeight: '700',
@@ -372,7 +369,6 @@ const ProfileEdit = () => {
                           <label
                             style={{
                               alignItems: 'center',
-                              fontFamily: 'Lato',
                               fontSize: '22px',
                               fontWeight: '500',
                               lineHeight: '2em',
@@ -401,7 +397,6 @@ const ProfileEdit = () => {
                         <div style={{ padding: '20px 30px' }}>
                           <label
                             style={{
-                              fontFamily: 'Lato',
                               fontSize: '22px',
                               fontWeight: '500',
                               lineHeight: '2em',
@@ -429,7 +424,6 @@ const ProfileEdit = () => {
                             style={{
                               textAlign: 'center',
                               color: '#FF2E00',
-                              fontFamily: 'Lato',
                               fontSize: '18px',
                             }}
                           >
@@ -448,7 +442,6 @@ const ProfileEdit = () => {
                             color: '#fff',
                             padding: '13px 35px',
                             borderRadius: '35px',
-                            fontFamily: 'Lato',
                             fontSize: '20px',
                             boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                             fontWeight: '700',

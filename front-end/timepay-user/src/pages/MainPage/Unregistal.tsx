@@ -54,7 +54,6 @@ const Unregistal = () => {
             <div
               style={{
                 fontSize: "18px",
-                fontFamily: "Lato",
                 filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
               }}
             >
@@ -93,7 +92,6 @@ const Unregistal = () => {
               <label
                 htmlFor="chk1"
                 style={{
-                  fontFamily: "Lato",
                   fontSize: "16px",
                   margin: "5px",
                   top: "2px",
