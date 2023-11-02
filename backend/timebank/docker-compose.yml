@@ -9,5 +9,33 @@ services:
       - MYSQL_PASSWORD=timebank
       - MYSQL_ROOT_PASSWORD=timebank
       - MYSQL_DATABASE=timebank
+  backend:
+    #image: timebank:backend
+    container_name: backend
+    build: .
+    environment:
+      DB_URL: jdbc:mysql://db:3306/timebank?serverTimezone=UTC&characterEncoding=UTF-8
+      DB_USERNAME: timebank
+      DB_PASSWORD: timebank
+      AUTH_ACCESS_TOKEN_SECRET_KEY: "12345678901234567890123456789012"
+  manager:
+    container_name: manager
+    build: ../../front-end/timepay-manager
+    links:
+      - backend:api
+  user:
+    container_name: user
+    build: ../../front-end/timepay-user
+    links:
+      - backend:api
+  nginx:
+    image: nginx
+    container_name: httpd
+    volumes:
+    - ./templates:/etc/nginx/templates
     ports:
-      - "3306:3306"
+    - 80:80
+    depends_on:
+    - manager
+    - user
+    - backend

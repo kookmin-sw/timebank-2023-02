@@ -10,13 +10,14 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename="/user">
     <App />
   </BrowserRouter>,
 );
 
 // Kakao SDK 초기화
-window.Kakao.init("a66d3f28c1e74a0287ef3c99e077e122");
+//window.Kakao.init("a66d3f28c1e74a0287ef3c99e077e122");
+window.Kakao.init("e4cddb50924dd3b6c7e747fbb029acd6");
 Kakao.isInitialized();
 
 

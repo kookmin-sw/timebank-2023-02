@@ -15,7 +15,7 @@ const root = ReactDOM.createRoot(
 const queryClient = new QueryClient();
 
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename="/manager">
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
         <App />

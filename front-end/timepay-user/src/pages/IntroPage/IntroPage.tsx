@@ -47,9 +47,9 @@ const kakaoLogin = () => {
           );
 
           if (await checkIsSignUpedUser()) {
-            window.location.href = './main';
+            window.location.href = './user/main';
           } else {
-            window.location.href = './SignUp';
+            window.location.href = './user/SignUp';
           }
         },
       });
