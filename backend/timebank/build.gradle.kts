@@ -57,6 +57,10 @@ dependencies {
     runtimeOnly("mysql:mysql-connector-java:8.0.32")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+//    실제 db에 연결 대신 임시로 내부에 디비 생성하여 오류 해결 보류
+    implementation("com.h2database:h2")
+
 }
 
 tasks.withType<KotlinCompile> {

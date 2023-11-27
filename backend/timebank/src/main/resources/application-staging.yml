@@ -19,4 +19,4 @@ springdoc:
 application:
   authentication:
     access-token:
-      secret-key: ${AUTH_ACCESS_TOKEN_SECRET_KEY}
+      secretKey: ${AUTH_ACCESS_TOKEN_SECRET_KEY}

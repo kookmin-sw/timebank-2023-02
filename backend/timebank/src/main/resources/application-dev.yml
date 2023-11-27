@@ -22,7 +22,7 @@ logging.level:
 application:
   authentication:
     access-token:
-      secret-key: 12345678901234567890123456789012
+      secretKey: 12345678901234567890123456789012
 
     test:
       enabled: ${AUTH_TEST_ENABLED}
