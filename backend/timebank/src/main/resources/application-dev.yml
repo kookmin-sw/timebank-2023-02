@@ -24,9 +24,9 @@ application:
     access-token:
       secretKey: 12345678901234567890123456789012
 
-    test:
-      enabled: ${AUTH_TEST_ENABLED}
-      user:
-        id: ${AUTH_TEST_USER_ID}
-        account-id: ${AUTH_TEST_ACCOUNT_ID}
-        account-type: ${AUTH_TEST_ACCOUNT_TYPE}
+#    test:
+#      enabled: ${AUTH_TEST_ENABLED}
+#      user:
+#        id: ${AUTH_TEST_USER_ID}
+#        account-id: ${AUTH_TEST_ACCOUNT_ID}
+#        account-type: ${AUTH_TEST_ACCOUNT_TYPE}
