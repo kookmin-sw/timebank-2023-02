@@ -17,7 +17,11 @@ springdoc:
   cache.disabled: true
 
 logging.level:
-  kookmin.software.capstone2023.timebank.infrastructure.client.kakao.KakaoRestClient: DEBUG
+#  kookmin.software.capstone2023.timebank.infrastructure.client.kakao.KakaoRestClient: DEBUG
+#  root: trace
+  root: info
+
+
 
 application:
   authentication:
