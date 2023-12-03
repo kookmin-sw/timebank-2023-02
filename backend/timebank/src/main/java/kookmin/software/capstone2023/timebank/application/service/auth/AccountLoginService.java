@@ -44,27 +44,22 @@ public class AccountLoginService {
     @Transactional
     public TokenData login(AuthenticationRequest authenticationRequest) {
         long userId = authenticate(authenticationRequest);
-
         User user = userJpaRepository.findById(userId).get();
+
         if (user == null) {
             throw new UnauthorizedException("등록되지 않은 사용자입니다.");
         }
-
         Account account = accountJpaRepository.findById(user.getAccount().getId()).get();
         if (account == null) {
             throw new UnauthorizedException("등록되지 않은 사용자입니다.");
         }
-
         if (authenticationRequest.getAccountType() != null && account.getType() != authenticationRequest.getAccountType()) {
             throw new UnauthorizedException("권한이 없습니다.");
         }
 
         Instant expiresAt = Instant.now().plus(7, ChronoUnit.DAYS);
-
         String accessToken = accessTokenService.issue(user.getId(), user.getAccount().getId(), expiresAt);
-
         user.updateLastLoginAt(LocalDateTime.now());
-
         return new TokenData(accessToken, expiresAt);
     }
 
@@ -79,11 +74,16 @@ public class AccountLoginService {
             return socialAuthentication.getUserId();
         } else if (authenticationRequest instanceof PasswordAuthenticationRequest) {
             PasswordAuthenticationRequest passwordAuthenticationRequest = (PasswordAuthenticationRequest) authenticationRequest;
+
             PasswordAuthentication authentication = passwordAuthenticationJpaRepository.findByUsername(passwordAuthenticationRequest.getUsername());
+
             if (authentication == null) {
                 throw new UnauthorizedException("등록되지 않은 사용자입니다.");
             }
-            if (!passwordEncoder.matches(passwordAuthenticationRequest.getPassword(), authentication.getPassword())) {
+            System.out.println(authentication.getPassword());
+//            System.out.println("AccountLoginServie.java : '1234' 임시 인코딩 ->" + passwordEncoder.encode(authentication.getPassword()));
+//            if (!passwordEncoder.matches(passwordAuthenticationRequest.getPassword(), authentication.getPassword())) {
+            if (!passwordEncoder.matches(passwordAuthenticationRequest.getPassword(), passwordEncoder.encode(authentication.getPassword()))) {
                 throw new UnauthorizedException("비밀번호가 일치하지 않습니다.");
             }
             return authentication.getUserId();

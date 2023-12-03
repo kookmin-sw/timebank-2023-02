@@ -2,10 +2,7 @@ package kookmin.software.capstone2023.timebank.domain.model;
 
 import jakarta.persistence.*;
 import kookmin.software.capstone2023.timebank.domain.model.auth.AuthenticationType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class User extends BaseTimeEntity {
 
     @Id

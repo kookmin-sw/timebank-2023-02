@@ -16,6 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class BankBranch extends BaseTimeEntity {
 
     @Id
@@ -24,6 +25,9 @@ public class BankBranch extends BaseTimeEntity {
 
     @Column(length = 20, nullable = false, updatable = true)
     private String name;
+
+    @Column(length = 20, nullable = false, updatable = false)
+    private String bank_account_number;
 
     @OneToMany(mappedBy = "branch")
     private Set<BankAccount> bankAccounts;

@@ -25,6 +25,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @RestController
 @RequestMapping("api/v1/managers")
@@ -48,7 +50,6 @@ public class ManagerController {
     @PostMapping("login")
     public ManagerLoginResponseData loginManager(@Validated @RequestBody ManagerLoginRequestData data) {
         var loginData = accountLoginService.login(data.toAuthenticationRequest());
-
         return new ManagerLoginResponseData(loginData.getAccessToken());
     }
 
@@ -60,11 +61,30 @@ public class ManagerController {
                                                          @RequestParam(required = false) String userPhoneNumber,
                                                          @RequestParam(required = false) LocalDate userBirthday,
                                                          @PageableDefault Pageable pageable) {
+        System.out.println("bankAccountNumber method start");
+        System.out.println(Specification.where(BankAccountSpecs.withAccountNumber(bankAccountNumber)).toString());
+        System.out.println(Specification.where(BankAccountSpecs.withAccountNumber(bankAccountNumber))
+                .and(BankAccountSpecs.withUser(userId, userName, userPhoneNumber, userBirthday)).toString());
+        System.out.println("bankAccountNumber : " + bankAccountNumber + " userId : " + userId + " userName : " + userName
+                        + " phone : " + userPhoneNumber + " birthday : " + userBirthday);
+
+//        var bankAccounts = bankAccountJpaRepository.findAll(
+//                Specification.where(BankAccountSpecs.withAccountNumber(bankAccountNumber))
+//                        .and(BankAccountSpecs.withUser(userId, userName, userPhoneNumber, userBirthday)),
+//                pageable
+//        );
+        if(userPhoneNumber != null && !userPhoneNumber.isEmpty()){
+            userPhoneNumber = userPhoneNumber.replaceAll("[^0-9]", "");
+        }
+
         var bankAccounts = bankAccountJpaRepository.findAll(
                 Specification.where(BankAccountSpecs.withAccountNumber(bankAccountNumber))
                         .and(BankAccountSpecs.withUser(userId, userName, userPhoneNumber, userBirthday)),
                 pageable
         );
+        System.out.println("test\" bankAccountNumber method start\"");
+        System.out.println(bankAccounts.get().toList().toString());
+        System.out.println(bankAccounts.map(BankAccountResponseData::fromDomain));
         return bankAccounts.map(BankAccountResponseData::fromDomain);
     }
 
@@ -89,13 +109,20 @@ public class ManagerController {
     @Transactional(readOnly = true)
     public ManagerPaymentResponseData transfer(@RequestAttribute(RequestAttributes.USER_CONTEXT) UserContext userContext,
                                                @Validated @RequestBody(required = true) ManagerPaymentRequestData paymentRequestData) {
+        System.out.println("test+!#@!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(userContext.toString());
+        System.out.println(userContext.getUserId());
+        System.out.println(userContext.getAccountId());
+        System.out.println(userContext.getAccountType());
+
         var response = transferService.transfer(new TransferService.TransferRequest(
                 userContext.getAccountId(),
-                paymentRequestData.getIsDeposit() ?
-                        paymentRequestData.getBranchBankAccountNumber() : paymentRequestData.getUserBankAccountNumber(),
-                paymentRequestData.getIsDeposit() ?
-                        paymentRequestData.getUserBankAccountNumber() : paymentRequestData.getBranchBankAccountNumber(),
+                paymentRequestData.getIsDeposit() ? paymentRequestData.getBranchBankAccountNumber() : paymentRequestData.getUserBankAccountNumber(),
+                paymentRequestData.getIsDeposit() ? paymentRequestData.getUserBankAccountNumber() : paymentRequestData.getBranchBankAccountNumber(),
                 paymentRequestData.getAmount()));
+        System.out.println("+++++++++++++++++++++#@##@+@+!++++++++++++++++++++");
+        System.out.println(response.getSenderBankAccount().getAccountNumber());
+        System.out.println(paymentRequestData.getBranchBankAccountNumber());
 
         if (response.getSenderBankAccount().getAccountNumber().equals(paymentRequestData.getBranchBankAccountNumber())) {
             return new ManagerPaymentResponseData(

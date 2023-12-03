@@ -1,5 +1,6 @@
 package kookmin.software.capstone2023.timebank.presentation.api.v1.manager.model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import jakarta.validation.constraints.NotBlank;
@@ -15,6 +16,10 @@ import kookmin.software.capstone2023.timebank.domain.model.auth.SocialPlatformTy
         include = JsonTypeInfo.As.EXISTING_PROPERTY,
         property = "authenticationType"
 )
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = ManagerLoginRequestData.PasswordLoginRequestData.class, name = "password"),
+        @JsonSubTypes.Type(value = ManagerLoginRequestData.SocialLoginRequestData.class, name = "social")
+})
 public abstract class ManagerLoginRequestData {
 
     private final AuthenticationType authenticationType;

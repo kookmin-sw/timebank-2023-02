@@ -36,20 +36,29 @@ public class TransferServiceImpl implements TransferService {
     )
     @Override
     public BankAccountTransaction transfer(TransferRequest request) {
+        System.out.println("test here++++++++++++++++++++++++++++++++++++++\n" +
+                "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+        System.out.println(request.getSenderAccountNumber());
         // 송금 계좌 조회
         BankAccount sender = bankAccountJpaRepository.findByAccountNumber(request.getSenderAccountNumber())
                 .orElseThrow(() -> new NotFoundException("출금하려는 계좌 정보가 존재하지 않습니다"));
 
+        System.out.println("test 2 here++++++++++++++++++++++++++++++++++++++\n" +
+                "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
         // 수신 계좌 조회
         BankAccount receiver = bankAccountJpaRepository.findByAccountNumber(request.getReceiverAccountNumber())
                 .orElseThrow(() -> new NotFoundException("입금하려는 계좌 정보가 존재하지 않습니다"));
-
+        System.out.println("test 3 here++++++++++++++++++++++++++++++++++++++\n" +
+                "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+        System.out.println(request.toString());
+        System.out.println(request.getAccountId());
         // 계정 조회
         Account account = accountFinder.findById(request.getAccountId());
         if (account == null) {
             throw new NotFoundException("계정 정보가 존재하지 않습니다.");
         }
-
+        System.out.println("test 4 here++++++++++++++++++++++++++++++++++++++\n" +
+                "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
         if (account.getType() == AccountType.INDIVIDUAL) {
             // 송금 계좌 비밀번호 일치 여부 확인
             if (!sender.getPassword().equals(request.getPassword())) {

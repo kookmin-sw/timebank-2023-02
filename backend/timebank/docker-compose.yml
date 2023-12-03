@@ -10,7 +10,7 @@ services:
       - MYSQL_ROOT_PASSWORD=timebank
       - MYSQL_DATABASE=timebank
   backend:
-    #image: timebank:backend
+    image: timebank:backend
     container_name: backend
     build: .
     environment:

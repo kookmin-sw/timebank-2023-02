@@ -62,7 +62,7 @@ export function LoginPage() {
               userSelect: 'none',
             }}
           >
-            국민대-정릉지점
+            국민대-정릉지점 test
           </Typography.Title>
         </div>
         <Card>

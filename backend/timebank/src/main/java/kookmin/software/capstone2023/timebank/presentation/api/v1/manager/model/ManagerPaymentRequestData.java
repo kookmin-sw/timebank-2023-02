@@ -22,7 +22,7 @@ public class ManagerPaymentRequestData {
     private final BigDecimal amount;
 
     public ManagerPaymentRequestData(String branchBankAccountNumber, String userBankAccountNumber, Boolean isDeposit, BigDecimal amount) {
-        this.branchBankAccountNumber = branchBankAccountNumber;
+        this.branchBankAccountNumber = "10-10-10";
         this.userBankAccountNumber = userBankAccountNumber;
         this.isDeposit = isDeposit;
         this.amount = amount;

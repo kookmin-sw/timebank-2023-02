@@ -11,4 +11,16 @@ public class UserProperties {
     public long getId() { return id; }
     public long getAccountId() { return accountId; }
     public AccountType getAccountType() { return accountType; }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
 }

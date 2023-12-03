@@ -9,6 +9,13 @@ spring:
       ddl-auto: update
     open-in-view: false
     show-sql: true
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+    add-properties: false
+
 
 springdoc:
   default-consumes-media-type: application/json;charset=UTF-8
@@ -16,10 +23,12 @@ springdoc:
   paths-to-match: /api/**
   cache.disabled: true
 
+
 logging.level:
 #  kookmin.software.capstone2023.timebank.infrastructure.client.kakao.KakaoRestClient: DEBUG
 #  root: trace
-  root: info
+  root: debug
+
 
 
 
@@ -27,7 +36,12 @@ application:
   authentication:
     access-token:
       secretKey: 12345678901234567890123456789012
-
+#    test:
+#      enabled: true
+#      user:
+#        id: 1
+#        account-id: 1234
+#        account-type: INDIVIDUAL
 #    test:
 #      enabled: ${AUTH_TEST_ENABLED}
 #      user:

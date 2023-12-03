@@ -2,5 +2,5 @@ import React from 'react';
 
 
 export function UserPage() {
-    return <div>HI</div>;
+    return <div>HI test</div>;
 }
