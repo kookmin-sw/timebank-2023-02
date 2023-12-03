@@ -9,6 +9,7 @@ import kookmin.software.capstone2023.timebank.domain.model.User;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class BankAccountSpecs {
     //    public static Specification<BankAccount> withAccountNumber(String accountNumber) {
@@ -73,7 +74,6 @@ public class BankAccountSpecs {
                     }
                 }
             }
-
             return criteriaBuilder.and(predicates);
         };
     }
