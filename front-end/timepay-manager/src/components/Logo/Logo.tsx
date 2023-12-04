@@ -32,7 +32,7 @@ export function Logo() {
         >
           시간은행
         </span>
-        <span>관리자 화면</span>
+        <span>관리자 화면 test</span>
       </div>
     </div>
   );
