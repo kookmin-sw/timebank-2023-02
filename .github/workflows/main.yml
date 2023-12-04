@@ -13,10 +13,7 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      - name: Change Directory
+      - name: Change Dir and Docker compose 
         run: |
           cd /home/dkadmin/actions-runner/_work/timebank-2023-02/timebank-2023-02/backend/timebank                                                                                              
-
-      - name: Docker Compose Up
-        run: |
           docker compose -f docker-compose.yml up -d --build
