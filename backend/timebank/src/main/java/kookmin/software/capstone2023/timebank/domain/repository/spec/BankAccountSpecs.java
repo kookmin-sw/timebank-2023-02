@@ -68,7 +68,7 @@ public class BankAccountSpecs {
                     predicates[i] = criteriaBuilder.conjunction(); // 빈 Predicate를 생성합니다.
 
                     for (int j = 0; j < predicates.length; j++) {
-                        if (predicates[j] != null && i != j) {
+                        if (predicates[j] != null && i != j) { 
                             predicates[i] = criteriaBuilder.and(predicates[i], predicates[j]);
                         }
                     }
