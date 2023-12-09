@@ -7,7 +7,9 @@ import kookmin.software.capstone2023.timebank.application.service.auth.AccountRe
 import kookmin.software.capstone2023.timebank.application.service.user.UserFinder;
 import kookmin.software.capstone2023.timebank.application.service.user.UserUpdateService;
 import kookmin.software.capstone2023.timebank.application.service.user.UserWithdrawalService;
+import kookmin.software.capstone2023.timebank.domain.model.Account;
 import kookmin.software.capstone2023.timebank.domain.model.AccountType;
+import kookmin.software.capstone2023.timebank.domain.model.User;
 import kookmin.software.capstone2023.timebank.presentation.api.RequestAttributes;
 import kookmin.software.capstone2023.timebank.presentation.api.auth.model.UserAuthentication;
 import kookmin.software.capstone2023.timebank.presentation.api.auth.model.UserContext;
@@ -52,7 +54,7 @@ public class UserController {
 
     @PostMapping("register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerUser(
+    public UserRegisterResponseData registerUser(
             @Validated @RequestBody UserRegisterRequestData data) {
         accountRegisterService.register(
                 data.toAuthenticationRequest(),
@@ -62,6 +64,17 @@ public class UserController {
                 data.getBirthday(),
                 AccountType.INDIVIDUAL
         );
+
+        // 동명이인 처리 안됨. 나중에 바꿀 것
+        Account createdAccount = accountFinder.findByName(data.getName());
+        User createdUser = userFinder.findByName(data.getName());
+
+        if (createdAccount == null) { throw new NotFoundException("Account 생성 실패"); }
+        if (createdUser == null) { throw new NotFoundException("User 생성 실패"); }
+
+        return new UserRegisterResponseData(
+                createdAccount.getId(),
+                createdUser.getId());
     }
 
     @UserAuthentication

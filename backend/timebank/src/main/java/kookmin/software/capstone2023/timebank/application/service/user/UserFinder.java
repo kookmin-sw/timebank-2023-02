@@ -16,4 +16,7 @@ public class UserFinder {
     public User findById(Long userId) {
         return userJpaRepository.findById(userId).orElse(null);
     }
+    public User findByName(String name) {
+        return userJpaRepository.findByName(name).orElse(null);
+    }
 }

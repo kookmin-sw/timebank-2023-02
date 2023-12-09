@@ -22,4 +22,9 @@ public class AccountFinder {
         Optional<Account> ret = accountJpaRepository.findById(accountId);
         return ret.orElse(null);
     }
+
+    public Account findByName(String name) {
+        Optional<Account> ret = accountJpaRepository.findByName(name);
+        return ret.orElse(null);
+    }
 }
